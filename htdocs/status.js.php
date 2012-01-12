@@ -60,7 +60,7 @@ $(document).ready(function() {
         $("#accounts_status_widget").show();
 
         $.ajax({
-            url: '/app/accounts/bootstrap/index/force',
+            url: '/app/accounts/bootstrap/index',
             method: 'GET',
             dataType: 'json',
             success : function(payload) {
