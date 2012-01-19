@@ -69,27 +69,38 @@ class Status extends ClearOS_Controller
     /**
      * Returns state of account system
      *
+     * Some apps are not able to work when in Active Directory mode.  The
+     * driver parameter can be passed to check for this type of incompatibility.
+     *
+     * @param string $driver driver requirement
+     *
      * @return boolean state of accounts driver
      */
 
-    function unhappy()
+    function unhappy($driver = NULL)
     {
         // Load libraries and grab status information
         //-------------------------------------------
 
         try {
             $this->load->factory('accounts/Accounts_Factory');
+            $this->load->library('accounts/Accounts_Configuration');
 
             $status = $this->accounts->get_system_status();
-            $driver_set = TRUE;
+            $running_driver = $this->accounts_configuration->get_driver();
+
+            if (!is_null($driver) && ($driver != $running_driver))
+                $happy = FALSE;
+            else
+                $happy = TRUE;
         } catch (Accounts_Driver_Not_Set_Exception $e) {
-            $driver_set = FALSE;
+            $happy = FALSE;
         } catch (Exception $e) {
             $this->page->view_exception($e);
             return FALSE;
         }
 
-        if ($driver_set && ($status === Accounts_Engine::STATUS_ONLINE))
+        if ($happy && ($status === Accounts_Engine::STATUS_ONLINE))
             return FALSE;
         else
             return TRUE;
@@ -98,18 +109,35 @@ class Status extends ClearOS_Controller
     /**
      * Status widget.
      *
-     * @return view accoutns status  view
+     * @param string $app_redirect redirect back to app
+     * @param string $driver driver requirement
+     *
+     * @return view accounts status view
      */
 
-    function widget($app_redirect)
+    function widget($app_redirect, $driver = NULL)
     {
         // Load dependencies
         //------------------
 
         $this->lang->load('base');
+        $this->load->library('accounts/Accounts_Configuration');
 
-        // Load views
-        //-----------
+        // Load view data
+        //---------------
+
+        $driver_ok = TRUE;
+
+        if (! is_null($driver)) {
+            try {
+                $running_driver = $this->accounts_configuration->get_driver();
+
+                if ($running_driver != $driver)
+                    $driver_ok = FALSE;
+            } catch (Accounts_Driver_Not_Set_Exception $e) {
+                // That's fine...
+            }
+        }
 
         if (! preg_match('/^([a-zA-Z0-9_])*/', $app_redirect))
             return;
@@ -117,7 +145,13 @@ class Status extends ClearOS_Controller
         $options['javascript'] = array(clearos_app_htdocs('accounts') . '/status.js.php');
         $data['app_redirect'] = $app_redirect;
 
-        $this->page->view_form('accounts/status', $data, lang('base_server_status'), $options);
+        // Load views
+        //-----------
+
+        if ($driver_ok)
+            $this->page->view_form('accounts/status', $data, lang('base_server_status'), $options);
+        else
+            $this->page->view_form('accounts/driver', $data, lang('base_server_status'));
     }
 
     /**

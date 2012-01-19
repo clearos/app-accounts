@@ -28,3 +28,5 @@ $lang['accounts_plugin'] = 'Plugin';
 $lang['accounts_plugins'] = 'Plugins';
 $lang['accounts_slave'] = 'Slave';
 $lang['accounts_standalone'] = 'Standalone';
+$lang['accounts_this_app_is_not_compatible_with_active_directory'] = 'This app is not compatible with the Active Directory Connector.';
+$lang['accounts_different_drectory_is_already_configured'] = 'A different directory is already configured.';
