@@ -92,6 +92,7 @@ class Accounts_Engine extends Engine
     // C O N S T A N T S
     ///////////////////////////////////////////////////////////////////////////////
 
+    const FILE_INITIALIZED = '/var/clearos/accounts/initialized';
     const PATH_PLUGINS = '/var/clearos/accounts/plugins';
 
     const MODE_CONNECTOR = 'connector';
@@ -164,6 +165,23 @@ class Accounts_Engine extends Engine
         }
 
         return $plugins;
+    }
+
+    /**
+     * Sets initialized flag.
+     *
+     * @return void
+     * @throws Engine_Exception
+     */
+
+    public function set_initialized()
+    {
+        clearos_profile(__METHOD__, __LINE__);
+
+        $file = new File(self::FILE_INITIALIZED);
+
+        if (! $file->exists())
+            $file->create('root', 'root', '0644');
     }
 
     ///////////////////////////////////////////////////////////////////////////////
