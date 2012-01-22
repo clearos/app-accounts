@@ -46,13 +46,7 @@ $openldap_logo = clearos_app_htdocs('accounts') . '/openldap_logo.gif';
 
 $ad_installed_action = anchor_custom('/app/active_directory', lang('accounts_configure_active_directory_connector'));
 $ad_marketplace_action = anchor_custom('/app/marketplace/view/active_directory', lang('accounts_install_active_directory_connector'));
-$ad_not_available = 'Active Directory Connector is available from ClearCenter.';
-
-/*
-        <div id='openldap_directory_installed'>$openldap_directory_installed</div>
-        <div id='openldap_directory_marketplace'>$openldap_directory_marketplace</div>
-        <div id='openldap_driver_installed'>$openldap_driver_installed</div>
-*/
+$ad_not_available = lang('accounts_active_directory_not_available_in_this_edition');
 
 $openldap_directory_installed = anchor_custom('/app/openldap_directory', lang('accounts_configure_builtin_directory'));
 $openldap_directory_marketplace = anchor_custom('/app/marketplace/view/openldap_directory', lang('accounts_install_builtin_directory'));
@@ -63,31 +57,33 @@ echo "<input type='hidden' id='app_redirect' value='$app_redirect'>";
 
 echo "<div id='accounts_configuration_widget'>";
 
+// TODO: implement this widget in the theme
 echo form_open('accounts/info');
-echo form_header(lang('accounts_account_manager_configuration'));
-echo "
+echo infobox_highlight(lang('accounts_account_manager_configuration'), "
+<table cellpading='3' cellspacing='3'>
 <tr>
-    <td align='center' width='250'><img src='$ad_logo' alt='Active Directory Connector'><br><br></td>
+    <td align='center' width='250'><img src='$ad_logo' alt='Active Directory'><br><br></td>
     <td>
-        <p>With the Active Directory Connector, you can use users and groups defined in
-        your Microsoft AD system.</p>
+        <p>" . lang('accounts_active_directory_connector_tip') . "</p>
         <div id='ad_installed'>$ad_installed_action</div>
         <div id='ad_marketplace'>$ad_marketplace_action</div>
         <div id='ad_not_available'>$ad_not_available</div>
     </td>
 </tr>
 <tr>
+    <td colspan='2'>&nbsp <hr style='color: #EEEEEE'><br></td>
+</tr>
+<tr>
     <td align='center'><img src='$openldap_logo' alt='OpenLDAP'><br><br></td>
     <td>
-        <p>The native Directory Server provides the most flexibility
-        when it comes to supporting third party apps.</p>
+        <p>" . lang('accounts_openldap_directory_tip') . "</p>
         <div id='openldap_directory_installed'>$openldap_directory_installed</div>
         <div id='openldap_directory_marketplace'>$openldap_directory_marketplace</div>
         <div id='openldap_driver_installed'>$openldap_driver_installed</div>
     </td>
 </tr>
-";
-echo form_footer();
+</table>
+");
 echo form_close();
 
 echo "</div>";

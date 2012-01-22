@@ -151,7 +151,7 @@ class Status extends ClearOS_Controller
         if ($driver_ok)
             $this->page->view_form('accounts/status', $data, lang('base_server_status'), $options);
         else
-            $this->page->view_form('accounts/driver', $data, lang('base_server_status'));
+            $this->page->view_form('accounts/driver_incompatible', $data, lang('base_server_status'));
     }
 
     /**
@@ -169,6 +169,8 @@ class Status extends ClearOS_Controller
         $data['openldap_directory_installed'] = (clearos_app_installed('openldap_directory')) ? TRUE : FALSE;
         $data['openldap_driver_installed'] = (clearos_library_installed('openldap_directory/OpenLDAP')) ? TRUE : FALSE;
         $data['ad_installed'] = (clearos_app_installed('active_directory')) ? TRUE : FALSE;
+        // FIXME
+        $data['ad_not_available'] = FALSE;
 
         try {
             $this->load->factory('accounts/Accounts_Factory');
@@ -189,12 +191,6 @@ class Status extends ClearOS_Controller
                 $data['status'] = 'initializing';
             }
 
-            $data['driver_selected'] = TRUE;
-            $data['code'] = 0;
-        } catch (Accounts_Driver_Not_Set_Exception $e) {
-            $data['driver_selected'] = FALSE;
-            $data['status_message'] = '';
-            $data['status'] = 'no_driver';
             $data['code'] = 0;
         } catch (Exception $e) {
             $data['code'] = 1;

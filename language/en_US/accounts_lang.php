@@ -35,3 +35,6 @@ $lang['accounts_cache_manager'] = 'Cache Manager';
 $lang['accounts_active'] = 'Active';
 $lang['accounts_reload_cache'] = 'Reload Cache';
 $lang['accounts_connecting_to_active_directory_please_be_patient'] = 'Connecting to Active Directory, please be patient.';
+$lang['accounts_active_directory_not_available_in_this_edition'] = 'The Active Directory Connector is not available in this edition.';
+$lang['accounts_active_directory_connector_tip'] = 'With the Active Directory Connector, you can use users and groups defined in your Microsoft AD system.';
+$lang['accounts_openldap_directory_tip'] = 'The native Directory Server provides the most flexibility when it comes to supporting third party apps.';

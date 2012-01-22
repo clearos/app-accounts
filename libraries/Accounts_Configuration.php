@@ -97,7 +97,7 @@ class Accounts_Configuration extends Engine
     // C O N S T A N T S
     ///////////////////////////////////////////////////////////////////////////////
 
-    const FILE_STATE = '/var/clearos/accounts/state';
+    const FILE_CONFIG = '/var/clearos/accounts/config';
     const PATH_DRIVERS = '/var/clearos/accounts/drivers';
 
     ///////////////////////////////////////////////////////////////////////////////
@@ -203,7 +203,7 @@ class Accounts_Configuration extends Engine
 
         Validation_Exception::is_valid($this->validate_driver($driver));
 
-        $file = new File(self::FILE_STATE);
+        $file = new File(self::FILE_CONFIG);
 
         if ($file->exists())
             $file->delete();
@@ -232,7 +232,7 @@ class Accounts_Configuration extends Engine
     {
         clearos_profile(__METHOD__, __LINE__);
 
-        $file = new File(self::FILE_STATE);
+        $file = new File(self::FILE_CONFIG);
 
         try {
             if ($file->exists())

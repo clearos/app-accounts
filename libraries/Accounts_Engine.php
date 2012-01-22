@@ -57,10 +57,12 @@ clearos_load_language('accounts');
 
 use \clearos\apps\accounts\Accounts_Configuration as Accounts_Configuration;
 use \clearos\apps\base\Engine as Engine;
+use \clearos\apps\base\File as File;
 use \clearos\apps\base\Folder as Folder;
 
 clearos_load_library('accounts/Accounts_Configuration');
 clearos_load_library('base/Engine');
+clearos_load_library('base/File');
 clearos_load_library('base/Folder');
 
 // Exceptions
@@ -165,6 +167,25 @@ class Accounts_Engine extends Engine
         }
 
         return $plugins;
+    }
+
+    /**
+     * Returns state of initialization.
+     *
+     * @return boolean TRUE if accounts have been initialized
+     * @throws Engine_Exception
+     */
+
+    public function is_initialized()
+    {
+        clearos_profile(__METHOD__, __LINE__);
+
+        $file = new File(self::FILE_INITIALIZED);
+
+        if ($file->exists())
+            return TRUE;
+        else
+            return FALSE;
     }
 
     /**
