@@ -192,6 +192,9 @@ class Status extends ClearOS_Controller
             }
 
             $data['code'] = 0;
+        } catch (Accounts_Driver_Not_Set_Exception $e) {
+            $data['status_message'] = lang('accounts_account_system_is_not_initialized');
+            $data['status'] = 'uninitialized';
         } catch (Exception $e) {
             $data['code'] = 1;
             $data['error_message'] = clearos_exception_message($e);
