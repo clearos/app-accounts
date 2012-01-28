@@ -169,8 +169,12 @@ class Status extends ClearOS_Controller
         $data['openldap_directory_installed'] = (clearos_app_installed('openldap_directory')) ? TRUE : FALSE;
         $data['openldap_driver_installed'] = (clearos_library_installed('openldap_directory/OpenLDAP')) ? TRUE : FALSE;
         $data['ad_installed'] = (clearos_app_installed('active_directory')) ? TRUE : FALSE;
-        // FIXME
-        $data['ad_not_available'] = FALSE;
+
+        // TODO: this should be generalized (e.g. if (os_type = business)
+        if (preg_match('/Community/', $this->session->userdata['os_name']))
+            $data['ad_not_available'] = TRUE;
+        else
+            $data['ad_not_available'] = FALSE;
 
         try {
             $this->load->factory('accounts/Accounts_Factory');
