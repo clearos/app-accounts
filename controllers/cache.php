@@ -145,12 +145,12 @@ class Cache extends ClearOS_Controller
         //-------------
 
         try {
-            // Do a cache reset on the first request or when user hits relaod
+            // Do a cache reset on the first request or when user hits reload
             $cache_state = $this->session->userdata('directory_cache');
             if (empty($cache_state) || ($cache_state == 'reset'))
                 $this->accounts->reset_cache();
 
-            // Loading the user data loads the cach
+            // Loading the user data loads the cache
             $not_used = $this->user_manager->get_core_details();
 
             // Set our session variable
