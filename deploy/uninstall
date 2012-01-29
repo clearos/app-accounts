@@ -5,3 +5,13 @@ if [ -e /var/clearos/accounts/state ]; then
     rm -f /var/clearos/accounts/state
 fi
 
+if [ -e /var/clearos/accounts/config ]; then
+    logger -p local6.notice -t installer "app-accounts-core - removing config file"
+    rm -f /var/clearos/accounts/config
+fi
+
+if [ -e /var/clearos/accounts/initialized ]; then
+    logger -p local6.notice -t installer "app-accounts-core - removing initialized file"
+    rm -f /var/clearos/accounts/initialized
+fi
+
