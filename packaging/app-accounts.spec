@@ -42,7 +42,6 @@ install -d -m 0755 %{buildroot}/var/clearos/accounts/drivers
 install -d -m 0755 %{buildroot}/var/clearos/accounts/plugins
 install -D -m 0755 packaging/accounts-init %{buildroot}/usr/sbin/accounts-init
 install -D -m 0644 packaging/nscd.php %{buildroot}/var/clearos/base/daemon/nscd.php
-install -D -m 0644 packaging/nslcd.php %{buildroot}/var/clearos/base/daemon/nslcd.php
 install -D -m 0644 packaging/storage-home-default.conf %{buildroot}/etc/clearos/storage.d/home-default.conf
 install -D -m 0644 packaging/storage-home.php %{buildroot}/var/clearos/storage/plugins/home.php
 
@@ -92,6 +91,5 @@ exit 0
 /usr/clearos/apps/accounts/libraries
 /usr/sbin/accounts-init
 /var/clearos/base/daemon/nscd.php
-/var/clearos/base/daemon/nslcd.php
 /etc/clearos/storage.d/home-default.conf
 /var/clearos/storage/plugins/home.php

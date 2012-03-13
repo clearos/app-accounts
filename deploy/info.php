@@ -49,5 +49,4 @@ $app['core_file_manifest'] = array(
     'storage-home-default.conf' => array ('target' => '/etc/clearos/storage.d/home-default.conf'),
     'storage-home.php' => array('target' => '/var/clearos/storage/plugins/home.php'),
     'nscd.php'=> array('target' => '/var/clearos/base/daemon/nscd.php'),
-    'nslcd.php'=> array('target' => '/var/clearos/base/daemon/nslcd.php'),
 );
