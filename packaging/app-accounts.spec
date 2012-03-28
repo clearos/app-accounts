@@ -1,7 +1,7 @@
 
 Name: app-accounts
 Epoch: 1
-Version: 1.0.8
+Version: 1.0.10
 Release: 1%{dist}
 Summary: Account Manager
 License: GPLv3
@@ -11,6 +11,7 @@ Buildarch: noarch
 Requires: %{name}-core = 1:%{version}-%{release}
 Requires: app-base
 Requires: app-mode-core
+Requires: app-dashboard
 
 %description
 Account manager - wordsmith
