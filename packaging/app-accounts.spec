@@ -12,6 +12,7 @@ Requires: %{name}-core = 1:%{version}-%{release}
 Requires: app-base
 Requires: app-mode-core
 Requires: app-dashboard
+Requires: app-certificate-manager
 
 %description
 Account manager - wordsmith

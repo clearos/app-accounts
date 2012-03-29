@@ -26,9 +26,11 @@ $app['subcategory'] = 'Accounts Manager';
 /////////////////////////////////////////////////////////////////////////////
 
 // TODO: app-dashboard should be moved to comps.xml
+// TODO: app-certificate-manager should be moved to comps.xml
 $app['requires'] = array(
     'app-mode-core',
     'app-dashboard',
+    'app-certificate-manager'
 );
 
 $app['core_requires'] = array(
