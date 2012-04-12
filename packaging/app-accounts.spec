@@ -1,7 +1,7 @@
 
 Name: app-accounts
 Epoch: 1
-Version: 1.0.10
+Version: 1.0.16
 Release: 1%{dist}
 Summary: Account Manager
 License: GPLv3
@@ -11,11 +11,9 @@ Buildarch: noarch
 Requires: %{name}-core = 1:%{version}-%{release}
 Requires: app-base
 Requires: app-mode-core
-Requires: app-dashboard
-Requires: app-certificate-manager
 
 %description
-Account manager - wordsmith
+An overview of installed plugins and extensions to the user directory that allows user-based features to be enabled/disabled easily.
 
 %package core
 Summary: Account Manager - APIs and install
@@ -27,7 +25,7 @@ Requires: app-storage-core
 Requires: system-accounts-driver
 
 %description core
-Account manager - wordsmith
+An overview of installed plugins and extensions to the user directory that allows user-based features to be enabled/disabled easily.
 
 This package provides the core API and libraries.
 

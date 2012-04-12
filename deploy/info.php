@@ -5,7 +5,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 $app['basename'] = 'accounts';
-$app['version'] = '1.0.10';
+$app['version'] = '1.0.16';
 $app['release'] = '1';
 $app['vendor'] = 'ClearFoundation';
 $app['packager'] = 'ClearFoundation';
@@ -25,12 +25,8 @@ $app['subcategory'] = 'Accounts Manager';
 // Packaging
 /////////////////////////////////////////////////////////////////////////////
 
-// TODO: app-dashboard should be moved to comps.xml
-// TODO: app-certificate-manager should be moved to comps.xml
 $app['requires'] = array(
     'app-mode-core',
-    'app-dashboard',
-    'app-certificate-manager'
 );
 
 $app['core_requires'] = array(
