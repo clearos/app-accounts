@@ -99,7 +99,7 @@ class Extensions extends ClearOS_Controller
         //------------------
 
         $this->lang->load('accounts');
-        $this->load->library('base/Software', 'app-' . $extension . '-extension-core');
+        $this->load->library('base/Software', 'app-' . preg_replace('/_/', '-', $extension) . '-extension-core');
 
         // Load view data
         //---------------

@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Accounts extensions view.
+ * Generic plugin policy controller.
  *
- * @category   ClearOS
+ * @category   Apps
  * @package    Accounts
- * @subpackage Views
+ * @subpackage Controllers
  * @author     ClearFoundation <developer@clearfoundation.com>
- * @copyright  2011 ClearFoundation
+ * @copyright  2012 ClearFoundation
  * @license    http://www.gnu.org/copyleft/gpl.html GNU General Public License version 3 or later
  * @link       http://www.clearfoundation.com/docs/developer/apps/accounts/
  */
@@ -25,56 +25,54 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <http://www.gnu.org/licenses/>.  
-//  
+// along with this program.  If not, see <http://www.gnu.org/licenses/>.
+//
 ///////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////
-// Load dependencies
+// B O O T S T R A P
 ///////////////////////////////////////////////////////////////////////////////
 
-$this->lang->load('accounts');
+$bootstrap = getenv('CLEAROS_BOOTSTRAP') ? getenv('CLEAROS_BOOTSTRAP') : '/usr/clearos/framework/shared';
+require_once $bootstrap . '/bootstrap.php';
 
 ///////////////////////////////////////////////////////////////////////////////
-// Headers
+// D E P E N D E N C I E S
 ///////////////////////////////////////////////////////////////////////////////
 
-$headers = array(
-    lang('accounts_extension')
-);
+require clearos_app_base('groups') . '/controllers/groups.php';
 
 ///////////////////////////////////////////////////////////////////////////////
-// Anchors
+// C L A S S
 ///////////////////////////////////////////////////////////////////////////////
 
-$anchors = array();
+/**
+ * Generic plugin policy controller.
+ *
+ * @category   Apps
+ * @package    Accounts
+ * @subpackage Controllers
+ * @author     ClearFoundation <developer@clearfoundation.com>
+ * @copyright  2012 ClearFoundation
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU General Public License version 3 or later
+ * @link       http://www.clearfoundation.com/docs/developer/apps/accounts/
+ */
 
-///////////////////////////////////////////////////////////////////////////////
-// Items
-///////////////////////////////////////////////////////////////////////////////
+class Policy extends Groups
+{
+    /**
+     * Generic plugin policy constructor.
+     */
 
-foreach ($extensions as $extension => $details) {
+    function __construct()
+    {
+        parent::__construct();
+    }
 
-    $item['title'] = $details['nickname'];
-    $item['action'] = '';
-    $item['anchors'] = '';
-    $item['details'] = array(
-        $details['nickname']
-    );
+    function members($plugin)
+    {
+        $group_name = $plugin . '_plugin';
 
-    $items[] = $item;
+        $this->account_plugin_members($plugin, $group_name, 'accounts');
+    }
 }
-
-///////////////////////////////////////////////////////////////////////////////
-// Summary table
-///////////////////////////////////////////////////////////////////////////////
-
-$options['no_action'] = TRUE;
-
-echo summary_table(
-    lang('accounts_extensions'),
-    $anchors,
-    $headers,
-    $items,
-    $options
-);

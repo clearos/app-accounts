@@ -33,6 +33,7 @@
 // Load dependencies
 ///////////////////////////////////////////////////////////////////////////////
 
+$this->lang->load('base');
 $this->lang->load('accounts');
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -54,10 +55,12 @@ $anchors = array();
 ///////////////////////////////////////////////////////////////////////////////
 
 foreach ($plugins as $plugin => $details) {
+    // $anchor = ($details['related_app']) ? anchor_custom('/app/' . $details['related_app'], lang('base_configure_app')) : '';
+    $anchor = '/app/accounts/policy/members/' . $plugin;
 
     $item['title'] = $details['name'];
-    $item['action'] = '/app/accounts/plugins/view/' . $plugin;
-    $item['anchors'] = ''; // FIXME: anchor_view('/app/accounts/plugins/view/' . $plugin);
+    $item['action'] = $anchor;
+    $item['anchors'] = anchor_custom($anchor, lang('base_app_policy'));
     $item['details'] = array(
         $details['name'],
     );
