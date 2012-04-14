@@ -1,7 +1,7 @@
 
 Name: app-accounts
 Epoch: 1
-Version: 1.0.16
+Version: 1.1.0
 Release: 1%{dist}
 Summary: Account Manager
 License: GPLv3
@@ -16,7 +16,7 @@ Requires: app-mode-core
 An overview of installed plugins and extensions to the user directory that allows user-based features to be enabled/disabled easily.
 
 %package core
-Summary: Account Manager - APIs and install
+Summary: Account Manager - Core
 License: LGPLv3
 Group: ClearOS/Libraries
 Requires: app-base-core
