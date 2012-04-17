@@ -95,3 +95,4 @@ echo "</div>";
 echo "<div id='accounts_status_widget'>";
 echo infobox_highlight(lang('accounts_account_manager_status'), '<div id="accounts_status"></div>');
 echo "</div>";
+
