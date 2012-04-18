@@ -37,28 +37,43 @@ $this->lang->load('base');
 $this->lang->load('accounts');
 
 ///////////////////////////////////////////////////////////////////////////////
-// Accounts Setup
+// Form handler
 ///////////////////////////////////////////////////////////////////////////////
 
 $sync_logo = clearos_app_htdocs('accounts') . '/account_synchronization_50x50.png';
-$buttons = button_set(
-    array(
-        anchor_custom('/app/accounts/system_mode/confirm', lang('accounts_set_standalone_mode')),
-        anchor_custom('/app/marketplace/view/account_synchronization', lang('accounts_view_account_synchronization_in_marketplace'))
-    )
-);
+
+if ($account_synchronization_installed) {
+    $blurb = lang('accounts_account_synchronization_help');
+    $buttons = button_set(
+        array(
+            anchor_custom('/app/account_synchronization', lang('accounts_configure_account_synchronization')),
+        )
+    );
+} else {
+    $blurb = lang('accounts_account_synchronization_available_help');
+    $buttons = button_set(
+        array(
+            anchor_custom('/app/accounts/system_mode/confirm', lang('accounts_set_standalone_mode')),
+            anchor_custom('/app/marketplace/view/account_synchronization', lang('accounts_view_account_synchronization_in_marketplace'))
+        )
+    );
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// Form
+///////////////////////////////////////////////////////////////////////////////
+// TODO: integrate custom layout into theme engine
 
 echo form_open('accounts/info');
 echo form_header(lang('accounts_account_synchronization'));
 echo form_banner("
 <table border='0' cellpadding='0' cellspacing='0' style='width: 100%'>
 <tr>
-    <td align='center' width='50'><img src='$sync_logo' alt=''></td>
-    <td valign='top'>" . lang('accounts_account_synchronization_help') . "</td>
-</tr>
-<tr>
-    <td>&nbsp; </td>
-    <td>$buttons</td>
+    <td valign='top' align='center' width='50'><img src='$sync_logo' alt=''></td>
+    <td valign='top'>
+        <p>$blurb</p>
+        <div align='center'>$buttons</div>
+    </td>
 </tr>
 </table>
 ");

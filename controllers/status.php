@@ -117,6 +117,16 @@ class Status extends ClearOS_Controller
 
     function widget($app_redirect, $driver = NULL)
     {
+        // Show mode status widget if we're not initialized
+        //-------------------------------------------------
+
+        $this->load->module('accounts/system_mode');
+
+        if (! $this->system_mode->initialized()) {
+            $this->system_mode->widget();
+            return;
+        }
+
         // Load dependencies
         //------------------
 

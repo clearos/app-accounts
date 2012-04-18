@@ -28,6 +28,12 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
 ///////////////////////////////////////////////////////////////////////////////
+//
+// TODO: this is a usability and coding circle.  The decision to make
+// Account Synchronization and app instead of integrating it creates this
+// headache.  There has to be a better way.
+//
+///////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////
 // D E P E N D E N C I E S
@@ -91,10 +97,18 @@ class System_Mode extends ClearOS_Controller
     {
         try {
             $this->load->factory('mode/Mode_Factory');
+            $this->load->library('base/OS');
 
             $mode = $this->mode->get_mode();
-            
-            $initialized = (empty($mode)) ? FALSE : TRUE;
+            $os = $this->os->get_name();
+
+            // TODO: use a policy instead
+            if (preg_match('/ClearOS Community/i', $os)) {
+                $this->mode->set_mode(Mode_Engine::MODE_STANDALONE);
+                $initialized = TRUE;
+            } else {
+                $initialized = (empty($mode)) ? FALSE : TRUE;
+            }
         } catch (Mode_Driver_Not_Set_Exception $e) {
             $initialized = FALSE;
         } catch (Exception $e) {
@@ -132,6 +146,8 @@ class System_Mode extends ClearOS_Controller
 
     function widget()
     {
+        $data['account_synchronization_installed'] = clearos_app_installed('account_synchronization');
+
         $this->page->view_form('accounts/mode', $data, lang('base_server_status'));
     }
 }
