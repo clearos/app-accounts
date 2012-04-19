@@ -13,7 +13,7 @@ Requires: app-base
 Requires: app-mode-core
 
 %description
-An overview of installed plugins and extensions to the user directory that allows user-based features to be enabled/disabled easily.
+The Account Manager manages the underlying accounts system system, as well as provides an overview of installed plugins and extensions for users and groups.
 
 %package core
 Summary: Account Manager - Core
@@ -25,7 +25,7 @@ Requires: app-storage-core
 Requires: system-accounts-driver
 
 %description core
-An overview of installed plugins and extensions to the user directory that allows user-based features to be enabled/disabled easily.
+The Account Manager manages the underlying accounts system system, as well as provides an overview of installed plugins and extensions for users and groups.
 
 This package provides the core API and libraries.
 
