@@ -39,7 +39,6 @@ $app['requires'] = array(
 
 $app['core_requires'] = array(
     'app-mode-core',
-    'app-storage-core',
     'system-accounts-driver',
 );
 
@@ -50,11 +49,9 @@ $app['core_directory_manifest'] = array(
 );
 
 $app['core_file_manifest'] = array(
-   'accounts-init' => array(
+    'accounts-init' => array(
         'target' => '/usr/sbin/accounts-init',
         'mode' => '0755',
     ),
-    'storage-home-default.conf' => array ('target' => '/etc/clearos/storage.d/home-default.conf'),
-    'storage-home.php' => array('target' => '/var/clearos/storage/plugins/home.php'),
     'nscd.php'=> array('target' => '/var/clearos/base/daemon/nscd.php'),
 );
