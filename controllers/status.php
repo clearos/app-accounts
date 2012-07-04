@@ -180,10 +180,9 @@ class Status extends ClearOS_Controller
         $data['openldap_driver_installed'] = (clearos_library_installed('openldap_directory/OpenLDAP')) ? TRUE : FALSE;
         $data['ad_installed'] = (clearos_app_installed('active_directory')) ? TRUE : FALSE;
 
-
         try {
             $this->load->factory('accounts/Accounts_Factory');
-            $this->load->library('base/Os');
+            $this->load->library('base/OS');
 
             $os_name = $this->os->get_name();
 
