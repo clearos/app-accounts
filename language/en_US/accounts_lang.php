@@ -45,3 +45,17 @@ $lang['accounts_set_standalone_mode'] = 'Set Standalone Mode';
 $lang['accounts_view_account_synchronization_in_marketplace'] = 'View Account Synchronization Details';
 $lang['accounts_confirm_standalone_mode'] = 'Are you sure you want to configure standalone mode?  Once confirmed, there is no going back.';
 $lang['accounts_configure_account_synchronization'] = 'Configure Account Synchronization';
+$lang['accounts_added_user'] = 'Added user.';
+$lang['accounts_deleted_user'] = 'Deleted user.';
+$lang['accounts_reset_user_password'] = 'Reset user password.';
+$lang['accounts_set_user_password'] = 'Set user password.';
+$lang['accounts_unlocked_user_account'] = 'Unlocked user account.';
+$lang['accounts_updated_user_information'] = 'Updated user information.';
+
+$lang['accounts_added_group'] = 'Added group.';
+$lang['accounts_added_member_to_group'] = 'Added member to group.';
+$lang['accounts_deleted_group'] = 'Deleted group.';
+$lang['accounts_deleted_member'] = 'Deleted group member.';
+$lang['accounts_updated_group_information'] = 'Updated group information.';
+$lang['accounts_updated_group_membership'] = 'Updated group membership.';
+$lang['accounts_plugin_name_invalid'] = 'Plugin name is invalid.';
