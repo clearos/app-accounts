@@ -94,6 +94,7 @@ class Accounts_Engine extends Engine
     // C O N S T A N T S
     ///////////////////////////////////////////////////////////////////////////////
 
+    const FILE_TRANSACTION_LOG = '/var/clearos/accounts/transaction.log';
     const FILE_INITIALIZED = '/var/clearos/accounts/initialized';
     const PATH_PLUGINS = '/var/clearos/accounts/plugins';
 
@@ -186,6 +187,27 @@ class Accounts_Engine extends Engine
             return TRUE;
         else
             return FALSE;
+    }
+
+    /**
+     * Logs an account transaction.
+     *
+     * When user or group information is changed, the event is sent to a log
+     *
+     * @param string $log_message log message
+     */
+
+    public function log_transaction($log_message)
+    {
+        clearos_profile(__METHOD__, __LINE__);
+
+        $file = new File(self::FILE_TRANSACTION_LOG);
+
+        if (!$file->exists())
+            $file->create('root', 'webconfig', '0664');
+
+        $timestamp = date('r');
+        $file->add_lines("$timestamp - $log_message\n");
     }
 
     /**
