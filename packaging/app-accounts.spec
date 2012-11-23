@@ -1,7 +1,7 @@
 
 Name: app-accounts
 Epoch: 1
-Version: 1.2.4
+Version: 1.4.5
 Release: 1%{dist}
 Summary: Account Manager
 License: GPLv3
@@ -20,7 +20,9 @@ Summary: Account Manager - Core
 License: LGPLv3
 Group: ClearOS/Libraries
 Requires: app-base-core
+Requires: app-events-core
 Requires: app-mode-core
+Requires: csplugin-filewatch
 Requires: system-accounts-driver
 
 %description core
@@ -39,7 +41,10 @@ cp -r * %{buildroot}/usr/clearos/apps/accounts/
 install -d -m 0755 %{buildroot}/var/clearos/accounts
 install -d -m 0755 %{buildroot}/var/clearos/accounts/drivers
 install -d -m 0755 %{buildroot}/var/clearos/accounts/plugins
+install -d -m 0755 %{buildroot}/var/clearos/events/accounts
+install -D -m 0755 packaging/accounts %{buildroot}/var/clearos/events/accounts/accounts
 install -D -m 0755 packaging/accounts-init %{buildroot}/usr/sbin/accounts-init
+install -D -m 0644 packaging/filewatch-accounts-event.conf %{buildroot}/etc/clearsync.d/filewatch-accounts-event.conf
 install -D -m 0644 packaging/nscd.php %{buildroot}/var/clearos/base/daemon/nscd.php
 
 %post
@@ -83,8 +88,11 @@ exit 0
 %dir /var/clearos/accounts
 %dir /var/clearos/accounts/drivers
 %dir /var/clearos/accounts/plugins
+%dir /var/clearos/events/accounts
 /usr/clearos/apps/accounts/deploy
 /usr/clearos/apps/accounts/language
 /usr/clearos/apps/accounts/libraries
+/var/clearos/events/accounts/accounts
 /usr/sbin/accounts-init
+/etc/clearsync.d/filewatch-accounts-event.conf
 /var/clearos/base/daemon/nscd.php

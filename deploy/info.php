@@ -5,7 +5,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 $app['basename'] = 'accounts';
-$app['version'] = '1.2.4';
+$app['version'] = '1.4.5';
 $app['release'] = '1';
 $app['vendor'] = 'ClearFoundation';
 $app['packager'] = 'ClearFoundation';
@@ -38,14 +38,17 @@ $app['requires'] = array(
 );
 
 $app['core_requires'] = array(
+    'app-events-core',
     'app-mode-core',
+    'csplugin-filewatch',
     'system-accounts-driver',
 );
 
 $app['core_directory_manifest'] = array(
-   '/var/clearos/accounts' => array(),
-   '/var/clearos/accounts/drivers' => array(),
-   '/var/clearos/accounts/plugins' => array(),
+    '/var/clearos/accounts' => array(),
+    '/var/clearos/accounts/drivers' => array(),
+    '/var/clearos/accounts/plugins' => array(),
+    '/var/clearos/events/accounts' => array(),
 );
 
 $app['core_file_manifest'] = array(
@@ -53,5 +56,10 @@ $app['core_file_manifest'] = array(
         'target' => '/usr/sbin/accounts-init',
         'mode' => '0755',
     ),
+    'accounts' => array(
+        'target' => '/var/clearos/events/accounts/accounts',
+        'mode' => '0755',
+    ),
     'nscd.php'=> array('target' => '/var/clearos/base/daemon/nscd.php'),
+    'filewatch-accounts-event.conf'=> array('target' => '/etc/clearsync.d/filewatch-accounts-event.conf'),
 );
