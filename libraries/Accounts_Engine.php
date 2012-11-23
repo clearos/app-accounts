@@ -95,6 +95,7 @@ class Accounts_Engine extends Engine
     ///////////////////////////////////////////////////////////////////////////////
 
     const FILE_TRANSACTION_LOG = '/var/clearos/accounts/transaction.log';
+    const FILE_TRANSACTION_STATE = '/var/clearos/accounts/transaction.state';
     const FILE_INITIALIZED = '/var/clearos/accounts/initialized';
     const PATH_PLUGINS = '/var/clearos/accounts/plugins';
 
@@ -201,6 +202,9 @@ class Accounts_Engine extends Engine
     {
         clearos_profile(__METHOD__, __LINE__);
 
+        // Log the message
+        //----------------
+
         $file = new File(self::FILE_TRANSACTION_LOG);
 
         if (!$file->exists())
@@ -208,6 +212,17 @@ class Accounts_Engine extends Engine
 
         $timestamp = date('r');
         $file->add_lines("$timestamp - $log_message\n");
+
+        // Put timestamp in state file
+        //----------------------------
+
+        $file = new File(self::FILE_TRANSACTION_STATE);
+
+        if ($file->exists())
+            $file->delete();
+
+        $file->create('root', 'root', '0644');
+        $file->add_lines("$timestamp\n");
     }
 
     /**
@@ -225,6 +240,13 @@ class Accounts_Engine extends Engine
 
         if (! $file->exists())
             $file->create('root', 'root', '0644');
+
+        if (clearos_library_installed('central_management/Accounts_Event')) {
+            clearos_load_library('central_management/Accounts_Event');
+
+            $accounts = new \clearos\apps\central_management\Accounts_Event();
+            $accounts->initialize();
+        }
     }
 
     ///////////////////////////////////////////////////////////////////////////////
