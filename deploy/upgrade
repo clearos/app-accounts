@@ -5,12 +5,6 @@
 
 /usr/sbin/addsudo /usr/sbin/nscd app-accounts-core
 
-# TODO: beta upgrade.  Remove after final
-if [ -e /var/clearos/accounts/state ]; then
-    mv /var/clearos/accounts/state /var/clearos/accounts/config
-    touch /var/clearos/accounts/initialized 
-fi
-
 # Reload clearsyncd
 #------------------
 
