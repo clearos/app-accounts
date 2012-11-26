@@ -148,6 +148,24 @@ function showAccountsInfo(payload) {
         $("#ad_not_available").hide();
     }
 
+    if (payload.samba_directory_not_available) {
+        $("#samba_directory_installed").hide();
+        $("#samba_directory_marketplace").hide();
+        $("#samba_directory_not_available").show();
+    } else if (payload.samba_directory_installed) {
+        $("#samba_directory_installed").show();
+        $("#samba_directory_marketplace").hide();
+        $("#samba_directory_not_available").hide();
+    } else if (payload.marketplace_installed) {
+        $("#samba_directory_installed").hide();
+        $("#samba_directory_marketplace").show();
+        $("#samba_directory_not_available").hide();
+    } else {
+        $("#samba_directory_installed").hide();
+        $("#samba_directory_marketplace").hide();
+        $("#samba_directory_not_available").hide();
+    }
+
     if (payload.openldap_directory_installed) {
         $("#openldap_directory_installed").show();
         $("#openldap_directory_marketplace").hide();

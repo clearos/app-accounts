@@ -172,25 +172,38 @@ class Status extends ClearOS_Controller
 
     function get_info()
     {
-        // Load view data
-        //---------------
+        // Get capabilities
+        //-----------------
 
         $data['marketplace_installed'] = (clearos_app_installed('marketplace')) ? TRUE : FALSE;
         $data['openldap_directory_installed'] = (clearos_app_installed('openldap_directory')) ? TRUE : FALSE;
         $data['openldap_driver_installed'] = (clearos_library_installed('openldap_directory/OpenLDAP')) ? TRUE : FALSE;
+        $data['samba_directory_installed'] = (clearos_app_installed('samba_directory')) ? TRUE : FALSE;
         $data['ad_installed'] = (clearos_app_installed('active_directory')) ? TRUE : FALSE;
 
         try {
-            $this->load->factory('accounts/Accounts_Factory');
             $this->load->library('base/OS');
 
             $os_name = $this->os->get_name();
 
             // TODO: this should be generalized (e.g. if (os_type = business)
-            if (preg_match('/Community/', $os_name))
+            if (preg_match('/Community/', $os_name)) {
                 $data['ad_not_available'] = TRUE;
-            else
+                $data['samba_directory_not_available'] = TRUE;
+            } else {
                 $data['ad_not_available'] = FALSE;
+                $data['samba_directory_not_available'] = FALSE;
+            }
+        } catch (Exception $e) {
+            $data['code'] = 1;
+            $data['error_message'] = clearos_exception_message($e);
+        }
+
+        // Get account status
+        //-------------------
+
+        try {
+            $this->load->factory('accounts/Accounts_Factory');
 
             $status = $this->accounts->get_system_status();
 
