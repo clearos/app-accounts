@@ -82,12 +82,12 @@ try {
         $samba = new \clearos\apps\samba_common\Samba();
         $mode = $samba->get_mode();
 
-        if ($mode === Samba::MODE_AD_CONNECTOR)
+        if ($mode === \clearos\apps\samba_common\Samba::MODE_AD_CONNECTOR)
             $home_group = 'domain users';
     }
 
-	$user_manager = User_Manager::create();
-	$users = $user_manager->get_list();
+    $user_manager = User_Manager::create();
+    $users = $user_manager->get_list();
 
     $folder = new Folder($home_basename);
     $homes = $folder->get_listing(FALSE, FALSE);
@@ -100,7 +100,7 @@ try {
         }
     }
 } catch (Exception $e) {
-	exit(1);
+    exit(1);
 }
 
 // vim: syntax=php ts=4
