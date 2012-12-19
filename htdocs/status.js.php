@@ -130,24 +130,6 @@ function showAccountsInfo(payload) {
     // Account Configuration
     //----------------------
 
-    if (payload.ad_not_available) {
-        $("#ad_installed").hide();
-        $("#ad_marketplace").hide();
-        $("#ad_not_available").show();
-    } else if (payload.ad_installed) {
-        $("#ad_installed").show();
-        $("#ad_marketplace").hide();
-        $("#ad_not_available").hide();
-    } else if (payload.marketplace_installed) {
-        $("#ad_installed").hide();
-        $("#ad_marketplace").show();
-        $("#ad_not_available").hide();
-    } else {
-        $("#ad_installed").hide();
-        $("#ad_marketplace").hide();
-        $("#ad_not_available").hide();
-    }
-
     if (payload.samba_directory_not_available) {
         $("#samba_directory_installed").hide();
         $("#samba_directory_marketplace").hide();
@@ -178,6 +160,38 @@ function showAccountsInfo(payload) {
         $("#openldap_directory_installed").hide();
         $("#openldap_directory_marketplace").show();
         $("#openldap_driver_installed").hide();
+    }
+
+    if (payload.ad_not_available) {
+        $("#ad_installed").hide();
+        $("#ad_marketplace").hide();
+        $("#ad_not_available").show();
+    } else if (payload.ad_installed) {
+        $("#ad_installed").show();
+        $("#ad_marketplace").hide();
+        $("#ad_not_available").hide();
+    } else if (payload.marketplace_installed) {
+        $("#ad_installed").hide();
+        $("#ad_marketplace").show();
+        $("#ad_not_available").hide();
+    } else {
+        $("#ad_installed").hide();
+        $("#ad_marketplace").hide();
+        $("#ad_not_available").hide();
+    }
+
+    // Account widgets
+    //----------------
+
+    if (payload.samba_directory_installed) {
+        $("#openldap_directory_object").hide();
+        $("#ad_object").hide();
+    } else if ((payload.openldap_directory_installed) || (payload.openldap_directory_installed)) {
+        $("#samba_directory_object").hide();
+        $("#ad_object").hide();
+    } else if (payload.ad_installed) {
+        $("#samba_directory_object").hide();
+        $("#openldap_directory_object").hide();
     }
 }
 

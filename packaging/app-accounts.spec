@@ -1,7 +1,7 @@
 
 Name: app-accounts
 Epoch: 1
-Version: 1.4.7
+Version: 1.4.8
 Release: 1%{dist}
 Summary: Account Manager
 License: GPLv3
@@ -23,7 +23,6 @@ Requires: app-base-core
 Requires: app-events-core
 Requires: app-mode-core
 Requires: csplugin-filewatch
-Requires: system-accounts-driver
 
 %description core
 The Account Manager manages the underlying accounts system system, as well as provides an overview of installed plugins and extensions for users and groups.

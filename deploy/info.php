@@ -5,7 +5,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 $app['basename'] = 'accounts';
-$app['version'] = '1.4.7';
+$app['version'] = '1.4.8';
 $app['release'] = '1';
 $app['vendor'] = 'ClearFoundation';
 $app['packager'] = 'ClearFoundation';
@@ -41,7 +41,6 @@ $app['core_requires'] = array(
     'app-events-core',
     'app-mode-core',
     'csplugin-filewatch',
-    'system-accounts-driver',
 );
 
 $app['core_directory_manifest'] = array(

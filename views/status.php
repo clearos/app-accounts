@@ -61,28 +61,16 @@ echo "<input type='hidden' id='app_redirect' value='$app_redirect'>";
 
 echo "<div id='accounts_configuration_widget'>";
 
-// TODO: implement this widget in the theme
-$drivers = "
-<table cellpading='3' cellspacing='3'>
-<tr>
-    <td align='center' width='250'><img src='$ad_logo' alt='Active Directory'><br><br></td>
-    <td>
-        <p>" . lang('accounts_active_directory_connector_tip') . "</p>
-        <div id='ad_installed'>$ad_installed_action</div>
-        <div id='ad_marketplace'>$ad_marketplace_action</div>
-        <div id='ad_not_available'>$ad_not_available</div>
-    </td>
-</tr>
-";
+//$drivers = '<table cellpadding="3" cellspacing="3">';
+$drivers = '';
 
 // FIXME: for now, don't show this unless samba4-dc is installed
-if (file_exists('/usr/sbin/samba'))
+// if (file_exists('/usr/sbin/samba'))
 $drivers .= "
+<div id='samba_directory_object'>
+<table cellpadding='3' cellspacing='3'>
 <tr>
-    <td colspan='2'>&nbsp <hr style='color: #EEEEEE'><br></td>
-</tr>
-<tr>
-    <td align='center' width='250'><img src='$samba_logo' alt='Samba Directory'><br><br></td>
+    <td align='center' width='220'><img src='$samba_logo' alt='Samba Directory'><br><br></td>
     <td>
         <p>" . lang('accounts_samba_directory_tip') . "</p>
         <div id='samba_directory_installed'>$samba_directory_installed_action</div>
@@ -90,14 +78,15 @@ $drivers .= "
         <div id='samba_directory_not_available'>$samba_directory_not_available</div>
     </td>
 </tr>
+</table>
+</div>
 ";
 
 $drivers .= "
+<div id='openldap_directory_object'>
+<table cellpadding='3' cellspacing='3'>
 <tr>
-    <td colspan='2'>&nbsp <hr style='color: #EEEEEE'><br></td>
-</tr>
-<tr>
-    <td align='center'><img src='$openldap_logo' alt='OpenLDAP'><br><br></td>
+    <td align='center' width='220'><img src='$openldap_logo' alt='OpenLDAP'><br><br></td>
     <td>
         <p>" . lang('accounts_openldap_directory_tip') . "</p>
         <div id='openldap_directory_installed'>$openldap_directory_installed</div>
@@ -106,7 +95,27 @@ $drivers .= "
     </td>
 </tr>
 </table>
+</div>
 ";
+
+// TODO: implement this widget in the theme
+$drivers .= "
+<div id='ad_object'>
+<table cellpadding='3' cellspacing='3'>
+<tr>
+    <td align='center' width='220'><img src='$ad_logo' alt='Active Directory'><br><br></td>
+    <td>
+        <p>" . lang('accounts_active_directory_connector_tip') . "</p>
+        <div id='ad_installed'>$ad_installed_action</div>
+        <div id='ad_marketplace'>$ad_marketplace_action</div>
+        <div id='ad_not_available'>$ad_not_available</div>
+    </td>
+</tr>
+</table>
+</div>
+";
+
+// $drivers .= "</table>";
 
 echo form_open('accounts/info');
 echo infobox_highlight(lang('accounts_account_manager_configuration'), $drivers);
