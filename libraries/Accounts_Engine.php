@@ -228,24 +228,29 @@ class Accounts_Engine extends Engine
     /**
      * Sets initialized flag.
      *
+     * @param boolean $state state
+     *
      * @return void
      * @throws Engine_Exception
      */
 
-    public function set_initialized()
+    public function set_initialized($state = TRUE)
     {
         clearos_profile(__METHOD__, __LINE__);
 
         $file = new File(self::FILE_INITIALIZED);
 
-        if (! $file->exists())
+        if ($state && !$file->exists()) {
             $file->create('root', 'root', '0644');
 
-        if (clearos_library_installed('central_management/Accounts_Event')) {
-            clearos_load_library('central_management/Accounts_Event');
+            if (clearos_library_installed('central_management/Accounts_Event')) {
+                clearos_load_library('central_management/Accounts_Event');
 
-            $accounts = new \clearos\apps\central_management\Accounts_Event();
-            $accounts->initialize();
+                $accounts = new \clearos\apps\central_management\Accounts_Event();
+                $accounts->initialize();
+            }
+        } else if (!$state && $file->exists()) {
+            $file->delete();
         }
     }
 

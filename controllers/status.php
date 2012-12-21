@@ -175,6 +175,7 @@ class Status extends ClearOS_Controller
         // Get capabilities
         //-----------------
 
+        $data['devel'] = ($_SERVER['SERVER_PORT'] == 1501) ? TRUE : FALSE;
         $data['marketplace_installed'] = (clearos_app_installed('marketplace')) ? TRUE : FALSE;
         $data['openldap_directory_installed'] = (clearos_app_installed('openldap_directory')) ? TRUE : FALSE;
         $data['openldap_driver_installed'] = (clearos_library_installed('openldap_directory/OpenLDAP')) ? TRUE : FALSE;

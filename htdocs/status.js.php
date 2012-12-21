@@ -183,7 +183,9 @@ function showAccountsInfo(payload) {
     // Account widgets
     //----------------
 
-    if (payload.samba_directory_installed) {
+    if (payload.devel) {
+        // Show all in devel mode
+    } else if (payload.samba_directory_installed) {
         $("#openldap_directory_object").hide();
         $("#ad_object").hide();
     } else if ((payload.openldap_directory_installed) || (payload.openldap_directory_installed)) {
