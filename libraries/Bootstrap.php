@@ -104,6 +104,6 @@ class Bootstrap extends Engine
 
         $openldap = new OpenLDAP();
 
-        $openldap->initialize(OpenLDAP::DEFAULT_DOMAIN, $force);
+        $openldap->run_initialize(OpenLDAP::DEFAULT_DOMAIN, $force);
     }
 }
