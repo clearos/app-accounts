@@ -13,6 +13,7 @@ $lang['accounts_account_synchronization_help'] = 'Before configuring user and gr
 $lang['accounts_account_system_driver_not_set'] = 'Accounts system driver has not been set.';
 $lang['accounts_account_system_is_initializing'] = 'Account system is initializing, please be patient.';
 $lang['accounts_account_system_is_not_initialized'] = 'Account system is not initialized.'; 
+$lang['accounts_account_system_initializing_extensions'] = 'Account system is initializing extensions and will return shortly.'; 
 $lang['accounts_active'] = 'Active';
 $lang['accounts_active_directory_connector_tip'] = 'With the Active Directory Connector, you can use users and groups defined in your Microsoft AD system.';
 $lang['accounts_active_directory_not_available_in_this_edition'] = 'The Active Directory Connector is not available in this edition.';

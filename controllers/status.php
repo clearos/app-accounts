@@ -220,6 +220,9 @@ class Status extends ClearOS_Controller
             } else if ($status == Accounts_Engine::STATUS_INITIALIZING) {
                 $data['status_message'] = lang('accounts_account_system_is_initializing');
                 $data['status'] = 'initializing';
+            } else if ($status == Accounts_Engine::STATUS_BUSY) {
+                $data['status_message'] = lang('accounts_account_system_initializing_extensions');
+                $data['status'] = 'busy';
             }
 
             $data['code'] = 0;

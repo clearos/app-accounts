@@ -108,6 +108,7 @@ class Accounts_Engine extends Engine
     const STATUS_UNINITIALIZED = 'uninitialized';
     const STATUS_OFFLINE = 'offline';
     const STATUS_ONLINE = 'online';
+    const STATUS_BUSY = 'busy';
 
     const DRIVER_UNSET = 'unset';
     const DRIVER_OK = 'ok';
@@ -243,6 +244,7 @@ class Accounts_Engine extends Engine
         if ($state && !$file->exists()) {
             $file->create('root', 'root', '0644');
 
+            // Call initalization hooks for central management
             if (clearos_library_installed('central_management/Accounts_Event')) {
                 clearos_load_library('central_management/Accounts_Event');
 

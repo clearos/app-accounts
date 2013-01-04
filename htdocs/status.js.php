@@ -101,7 +101,7 @@ function showAccountsInfo(payload) {
     // Add whirly when initializing
     //-----------------------------
 
-    if (payload.status == 'initializing')
+    if ((payload.status == 'initializing') || (payload.status == 'busy'))
         $("#accounts_status").html('<div class="theme-loading-normal">' + payload.status_message + '</div>');
     else
         $("#accounts_status").html(payload.status_message);
