@@ -78,6 +78,9 @@ $drivers .= "
         <div id='samba_directory_not_available'>$samba_directory_not_available</div>
     </td>
 </tr>
+<tr>
+    <td colspan='2'>&nbsp </td>
+</tr>
 </table>
 </div>
 ";
@@ -93,6 +96,9 @@ $drivers .= "
         <div id='openldap_directory_marketplace'>$openldap_directory_marketplace</div>
         <div id='openldap_driver_installed'>$openldap_driver_installed</div>
     </td>
+</tr>
+<tr>
+    <td colspan='2'>&nbsp </td>
 </tr>
 </table>
 </div>
@@ -110,6 +116,9 @@ $drivers .= "
         <div id='ad_marketplace'>$ad_marketplace_action</div>
         <div id='ad_not_available'>$ad_not_available</div>
     </td>
+</tr>
+<tr>
+    <td colspan='2'>&nbsp </td>
 </tr>
 </table>
 </div>
