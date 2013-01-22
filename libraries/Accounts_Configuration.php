@@ -105,7 +105,7 @@ class Accounts_Configuration extends Engine
     ///////////////////////////////////////////////////////////////////////////////
 
     /**
-     * Directory manager constructor.
+     * Accounts configuration constructor.
      */
 
     public function __construct()

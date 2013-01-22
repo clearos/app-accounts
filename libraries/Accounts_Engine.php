@@ -7,7 +7,7 @@
  * @package    Accounts
  * @subpackage Libraries
  * @author     ClearFoundation <developer@clearfoundation.com>
- * @copyright  2011 ClearFoundation
+ * @copyright  2011-2013 ClearFoundation
  * @license    http://www.gnu.org/copyleft/lgpl.html GNU Lesser General Public License version 3 or later
  * @link       http://www.clearfoundation.com/docs/developer/apps/accounts/
  */
@@ -83,7 +83,7 @@ clearos_load_library('accounts/Accounts_Driver_Not_Set_Exception');
  * @package    Accounts
  * @subpackage Libraries
  * @author     ClearFoundation <developer@clearfoundation.com>
- * @copyright  2011 ClearFoundation
+ * @copyright  2011-2013 ClearFoundation
  * @license    http://www.gnu.org/copyleft/lgpl.html GNU Lesser General Public License version 3 or later
  * @link       http://www.clearfoundation.com/docs/developer/apps/accounts/
  */
@@ -125,7 +125,7 @@ class Accounts_Engine extends Engine
     ///////////////////////////////////////////////////////////////////////////////
 
     /**
-     * Directory manager constructor.
+     * Accounts engine constructor.
      */
 
     public function __construct()
@@ -197,6 +197,7 @@ class Accounts_Engine extends Engine
      * When user or group information is changed, the event is sent to a log
      *
      * @param string $log_message log message
+     * @return void
      */
 
     public function log_transaction($log_message)

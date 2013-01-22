@@ -121,10 +121,12 @@ class Cache extends ClearOS_Controller
 
     function widget($app)
     {
+        $this->lang->load('accounts');
+
         $data['app'] = $app;
         $options['javascript'] = array(clearos_app_htdocs('accounts') . '/cache.js.php');
 
-        $this->page->view_form('accounts/cache', $data, lang('users_user_manager'), $options);
+        $this->page->view_form('accounts/cache', $data, lang('accounts_cache_manager'), $options);
     }
 
     /**

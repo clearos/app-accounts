@@ -7,7 +7,7 @@
  * @package    Accounts
  * @subpackage Exceptions
  * @author     ClearFoundation <developer@clearfoundation.com>
- * @copyright  2006-2011 ClearFoundation
+ * @copyright  2006-2013 ClearFoundation
  * @license    http://www.gnu.org/copyleft/lgpl.html GNU Lesser General Public License version 3 or later
  * @link       http://www.clearfoundation.com/docs/developer/apps/accounts/
  */
@@ -67,7 +67,7 @@ clearos_load_library('base/Engine_Exception');
  * @package    Accounts
  * @subpackage Exceptions
  * @author     ClearFoundation <developer@clearfoundation.com>
- * @copyright  2006-2011 ClearFoundation
+ * @copyright  2006-2013 ClearFoundation
  * @license    http://www.gnu.org/copyleft/lgpl.html GNU Lesser General Public License version 3 or later
  * @link       http://www.clearfoundation.com/docs/developer/apps/accounts/
  */
@@ -75,7 +75,7 @@ clearos_load_library('base/Engine_Exception');
 class Accounts_Unavailable_Exception extends Engine_Exception
 {
     /**
-     * Accounts_Unavailable_Exception constructor.
+     * Accounts unavailable exception constructor.
      */
 
     public function __construct()

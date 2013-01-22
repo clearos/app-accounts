@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Accounts factory.
+ * Accounts factory class.
  *
  * @category   Apps
  * @package    Accounts
  * @subpackage Libraries
  * @author     ClearFoundation <developer@clearfoundation.com>
- * @copyright  2011 ClearFoundation
+ * @copyright  2011-2013 ClearFoundation
  * @license    http://www.gnu.org/copyleft/lgpl.html GNU Lesser General Public License version 3 or later
  * @link       http://www.clearfoundation.com/docs/developer/apps/accounts/
  */
@@ -66,13 +66,13 @@ clearos_load_library('base/Engine');
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
- * Accounts factory.
+ * Accounts factory class.
  *
  * @category   Apps
  * @package    Accounts
  * @subpackage Libraries
  * @author     ClearFoundation <developer@clearfoundation.com>
- * @copyright  2011 ClearFoundation
+ * @copyright  2011-2013 ClearFoundation
  * @license    http://www.gnu.org/copyleft/lgpl.html GNU Lesser General Public License version 3 or later
  * @link       http://www.clearfoundation.com/docs/developer/apps/accounts/
  */
@@ -84,7 +84,7 @@ class Accounts_Factory extends Engine
     ///////////////////////////////////////////////////////////////////////////////
 
     /**
-     * Directory constructor.
+     * Accounts factory constructor.
      */
 
     public function __construct()
