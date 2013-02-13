@@ -15,3 +15,12 @@ if [ -e /var/clearos/accounts/initialized ]; then
     rm -f /var/clearos/accounts/initialized
 fi
 
+if [ -e /var/clearos/accounts/transaction.log ]; then
+    logger -p local6.notice -t installer "app-accounts-core - removing transaction log"
+    rm -f /var/clearos/accounts/transaction.log
+fi
+
+if [ -e /var/clearos/accounts/transaction.state ]; then
+    logger -p local6.notice -t installer "app-accounts-core - removing transaction state"
+    rm -f /var/clearos/accounts/transaction.state
+fi
