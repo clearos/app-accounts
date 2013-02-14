@@ -65,12 +65,22 @@ class Accounts extends ClearOS_Controller
             return;
         }
 
+        // Show account status widget if we're not in a happy state
+        //---------------------------------------------------------
+
+        $this->load->module('accounts/status');
+
+        if ($this->status->unhappy()) {
+            $this->status->widget('accounts');
+            return;
+        }
+
         // Load views
         //-----------
 
         $this->load->language('accounts');
 
-        $views = array('accounts/status', 'accounts/plugins', 'accounts/extensions');
+        $views = array('accounts/plugins', 'accounts/extensions');
 
         $this->page->view_forms($views, lang('accounts_app_name'));
     }

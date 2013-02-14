@@ -63,7 +63,7 @@ class Status extends ClearOS_Controller
     function index()
     {
         if ($this->unhappy())
-            $this->widget();
+            $this->widget('accounts');
     }
 
     /**
