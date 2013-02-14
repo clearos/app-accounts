@@ -79,7 +79,7 @@ $drivers .= "
     </td>
 </tr>
 <tr>
-    <td colspan='2'>&nbsp </td>
+    <td colspan='2'>&nbsp; </td>
 </tr>
 </table>
 </div>
@@ -98,7 +98,7 @@ $drivers .= "
     </td>
 </tr>
 <tr>
-    <td colspan='2'>&nbsp </td>
+    <td colspan='2'>&nbsp; </td>
 </tr>
 </table>
 </div>
@@ -118,7 +118,7 @@ $drivers .= "
     </td>
 </tr>
 <tr>
-    <td colspan='2'>&nbsp </td>
+    <td colspan='2'>&nbsp; </td>
 </tr>
 </table>
 </div>
