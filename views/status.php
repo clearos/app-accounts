@@ -56,10 +56,10 @@ $openldap_directory_installed = anchor_custom('/app/openldap_directory', lang('a
 $openldap_directory_marketplace = anchor_custom('/app/marketplace/view/openldap_directory', lang('accounts_install_builtin_directory'));
 $openldap_driver_installed = anchor_javascript('initialize_openldap', lang('accounts_initialize_builtin_directory'));
 
+echo "<div id='accounts_configuration_widget' style='display:none;'>";
+
 echo "<input type='hidden' id='accounts_status_lock' value='off'>\n";
 echo "<input type='hidden' id='app_redirect' value='$app_redirect'>";
-
-echo "<div id='accounts_configuration_widget'>";
 
 //$drivers = '<table cellpadding="3" cellspacing="3">';
 $drivers = '';
@@ -137,7 +137,7 @@ echo "</div>";
 // Accounts Status
 ///////////////////////////////////////////////////////////////////////////////
 
-echo "<div id='accounts_status_widget'>";
+echo "<div id='accounts_status_widget' style='display:none;'>";
 echo infobox_highlight(lang('accounts_account_manager_status'), '<div id="accounts_status"></div>');
 echo "</div>";
 

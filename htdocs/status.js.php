@@ -7,7 +7,7 @@
  * @package    Accounts
  * @subpackage Javascript
  * @author     ClearFoundation <developer@clearfoundation.com>
- * @copyright  2011 ClearFoundation
+ * @copyright  2011-2013 ClearFoundation
  * @license    http://www.gnu.org/copyleft/gpl.html GNU General Public License version 3 or later
  * @link       http://www.clearfoundation.com/docs/developer/apps/accounts/
  */
@@ -54,18 +54,13 @@ $(document).ready(function() {
     $("#accounts_status_widget").hide();
 
     $("#initialize_openldap").click(function(){
-        $("#accounts_status").html('<div class="theme-loading-normal"></div>');
         $("#accounts_configuration_widget").hide();
-        $("#accounts_status_widget").show();
 
         $.ajax({
             url: '/app/accounts/bootstrap/index',
             method: 'GET',
             dataType: 'json',
             success : function(payload) {
-                var app_redirect = $('#app_redirect').val();
-                var redirect = (app_redirect) ? '/app/' + app_redirect : '/app/accounts';
-                window.location.href = redirect;
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
             }
@@ -95,16 +90,12 @@ function showAccountsInfo(payload) {
 
     // When the status goes to "offline", the status lock is set.  When
     // status returns back to online, it will reload the page.
+    // An extra step is added to catch the transition between the
+    // LDAP initialization and SambaLDAP initialization (if any)
 
     var accounts_status_lock = $('#accounts_status_lock').val();
 
-    // Add whirly when initializing
-    //-----------------------------
-
-    if ((payload.status == 'initializing') || (payload.status == 'busy'))
-        $("#accounts_status").html('<div class="theme-loading-normal">' + payload.status_message + '</div>');
-    else
-        $("#accounts_status").html(payload.status_message);
+    $("#accounts_status").html('<div class="theme-loading-normal">' + payload.status_message + '</div>');
 
     // Show / hide forms depending on state
     //-------------------------------------
@@ -113,16 +104,23 @@ function showAccountsInfo(payload) {
         $("#accounts_status_widget").hide();
         $("#accounts_configuration_widget").show();
     } else if (payload.status == 'online') {
-        if (accounts_status_lock == 'on') {
+        if (accounts_status_lock == 'step0') {
+            $('#accounts_status_lock').val('on');
+        } else if (accounts_status_lock == 'on') {
             var app_redirect = $('#app_redirect').val();
             var redirect = (app_redirect) ? '/app/' + app_redirect : '/app/accounts';
+
+            // add /index since the browser won't redirect to itself (bug?)
+            if (redirect == '/app/accounts')
+                redirect = '/app/accounts/index';
+
             window.location.href = redirect;
         } else {
             $("#accounts_status_widget").hide();
             $("#accounts_configuration_widget").hide();
         }
     } else {
-        $('#accounts_status_lock').val('on');
+        $('#accounts_status_lock').val('step0');
         $("#accounts_status_widget").show();
         $("#accounts_configuration_widget").hide();
     }
