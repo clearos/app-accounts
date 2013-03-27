@@ -65,7 +65,7 @@ echo "<input type='hidden' id='app_redirect' value='$app_redirect'>";
 $drivers = '';
 
 // FIXME: for now, don't show this unless samba4-dc is installed
-// if (file_exists('/usr/sbin/samba'))
+if (file_exists('/usr/sbin/samba'))
 $drivers .= "
 <div id='samba_directory_object'>
 <table cellpadding='3' cellspacing='3'>
