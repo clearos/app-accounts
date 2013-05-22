@@ -8,9 +8,9 @@
  * demand.  However, there are some exceptions to this rule.  This 
  * script is run (via clearsync) when a user is added to the system.
  *
- * @category   Apps
- * @package    Accounts
- * @subpackage Scripts
+ * @category   apps
+ * @package    accounts
+ * @subpackage scripts
  * @author     ClearFoundation <developer@clearfoundation.com>
  * @copyright  2011 ClearFoundation
  * @license    http://www.gnu.org/copyleft/gpl.html GNU General Public License version 3 or later

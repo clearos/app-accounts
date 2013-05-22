@@ -3,9 +3,9 @@
 /**
  * Accounts factory class.
  *
- * @category   Apps
- * @package    Accounts
- * @subpackage Libraries
+ * @category   apps
+ * @package    accounts
+ * @subpackage libraries
  * @author     ClearFoundation <developer@clearfoundation.com>
  * @copyright  2011-2013 ClearFoundation
  * @license    http://www.gnu.org/copyleft/lgpl.html GNU Lesser General Public License version 3 or later
@@ -68,9 +68,9 @@ clearos_load_library('base/Engine');
 /**
  * Accounts factory class.
  *
- * @category   Apps
- * @package    Accounts
- * @subpackage Libraries
+ * @category   apps
+ * @package    accounts
+ * @subpackage libraries
  * @author     ClearFoundation <developer@clearfoundation.com>
  * @copyright  2011-2013 ClearFoundation
  * @license    http://www.gnu.org/copyleft/lgpl.html GNU Lesser General Public License version 3 or later

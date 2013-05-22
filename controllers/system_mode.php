@@ -3,9 +3,9 @@
 /**
  * Accounts mode check.
  *
- * @category   Apps
- * @package    Accounts
- * @subpackage Controllers
+ * @category   apps
+ * @package    accounts
+ * @subpackage controllers
  * @author     ClearFoundation <developer@clearfoundation.com>
  * @copyright  2012 ClearFoundation
  * @license    http://www.gnu.org/copyleft/gpl.html GNU General Public License version 3 or later
@@ -50,9 +50,9 @@ use \clearos\apps\mode\Mode_Driver_Not_Set_Exception as Mode_Driver_Not_Set_Exce
 /**
  * Accounts mode check.
  *
- * @category   Apps
- * @package    Accounts
- * @subpackage Controllers
+ * @category   apps
+ * @package    accounts
+ * @subpackage controllers
  * @author     ClearFoundation <developer@clearfoundation.com>
  * @copyright  2012 ClearFoundation
  * @license    http://www.gnu.org/copyleft/gpl.html GNU General Public License version 3 or later

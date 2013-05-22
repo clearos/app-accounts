@@ -3,9 +3,9 @@
 /**
  * Accounts driver not set exception class.
  *
- * @category   Apps
- * @package    Accounts
- * @subpackage Exceptions
+ * @category   apps
+ * @package    accounts
+ * @subpackage libraries
  * @author     ClearFoundation <developer@clearfoundation.com>
  * @copyright  2006-2013 ClearFoundation
  * @license    http://www.gnu.org/copyleft/lgpl.html GNU Lesser General Public License version 3 or later
@@ -63,9 +63,9 @@ clearos_load_library('base/Engine_Exception');
 /**
  * Accounts driver not set exception class.
  *
- * @category   Apps
- * @package    Accounts
- * @subpackage Exceptions
+ * @category   apps
+ * @package    accounts
+ * @subpackage libraries
  * @author     ClearFoundation <developer@clearfoundation.com>
  * @copyright  2006-2013 ClearFoundation
  * @license    http://www.gnu.org/copyleft/lgpl.html GNU Lesser General Public License version 3 or later

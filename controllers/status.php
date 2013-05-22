@@ -3,9 +3,9 @@
 /**
  * Accounts initialization check.
  *
- * @category   Apps
- * @package    Accounts
- * @subpackage Controllers
+ * @category   apps
+ * @package    accounts
+ * @subpackage controllers
  * @author     ClearFoundation <developer@clearfoundation.com>
  * @copyright  2011 ClearFoundation
  * @license    http://www.gnu.org/copyleft/gpl.html GNU General Public License version 3 or later
@@ -43,9 +43,9 @@ use \clearos\apps\accounts\Accounts_Engine as Accounts_Engine;
 /**
  * Accounts initialization check.
  *
- * @category   Apps
- * @package    Accounts
- * @subpackage Controllers
+ * @category   apps
+ * @package    accounts
+ * @subpackage controllers
  * @author     ClearFoundation <developer@clearfoundation.com>
  * @copyright  2011 ClearFoundation
  * @license    http://www.gnu.org/copyleft/gpl.html GNU General Public License version 3 or later
