@@ -4,8 +4,3 @@
 #--------
 
 /usr/sbin/addsudo /usr/sbin/nscd app-accounts-core
-
-# Reload clearsyncd
-#------------------
-
-/sbin/service clearsyncd condrestart >/dev/null 2>&1
