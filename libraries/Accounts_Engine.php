@@ -52,6 +52,10 @@ clearos_load_language('accounts');
 // D E P E N D E N C I E S
 ///////////////////////////////////////////////////////////////////////////////
 
+///////////////////////////////////////////////////////////////////////////////
+// D E P E N D E N C I E S
+///////////////////////////////////////////////////////////////////////////////
+
 // Classes
 //--------
 
@@ -59,15 +63,22 @@ use \clearos\apps\accounts\Accounts_Configuration as Accounts_Configuration;
 use \clearos\apps\base\Engine as Engine;
 use \clearos\apps\base\File as File;
 use \clearos\apps\base\Folder as Folder;
+use \clearos\apps\groups\Group_Factory as Group_Factory;
+use \clearos\apps\mode\Mode_Engine as Mode_Engine;
+use \clearos\apps\mode\Mode_Factory as Mode_Factory;
 
 clearos_load_library('accounts/Accounts_Configuration');
 clearos_load_library('base/Engine');
 clearos_load_library('base/File');
 clearos_load_library('base/Folder');
+clearos_load_library('groups/Group_Factory');
+clearos_load_library('mode/Mode_Engine');
+clearos_load_library('mode/Mode_Factory');
 
 // Exceptions
 //-----------
 
+use \Exception as Exception;
 use \clearos\apps\accounts\Accounts_Driver_Not_Set_Exception as Accounts_Driver_Not_Set_Exception;
 
 clearos_load_library('accounts/Accounts_Driver_Not_Set_Exception');
@@ -170,6 +181,61 @@ class Accounts_Engine extends Engine
         }
 
         return $plugins;
+    }
+
+    /**
+     * Initializes plugin groups.
+     *
+     * During the initialization() method, there's a good time to 
+     * get the plugin groups added just before the initialization
+     * process is complete.  The "check_init" flag allows us to skip the
+     * initialization check for this particular case.
+     *
+     * @param boolean $check_init flag to check initialization
+     *
+     * @return void
+     * @throws Engine_Exception
+     */
+
+    public function initialize_plugin_groups($check_init = TRUE)
+    {
+        clearos_profile(__METHOD__, __LINE__);
+
+        // Bail if not initialized
+        //------------------------
+
+        if ($check_init && !$this->is_initialized())
+            return;
+
+        // Set initializing
+        // Bail if we are slave... not necessary
+        //--------------------------------------
+
+        $sysmode = Mode_Factory::create();
+        $mode = $sysmode->get_mode();
+
+        if ($mode === Mode_Engine::MODE_SLAVE)
+            return;
+
+        // Load plugin info and initialize
+        //--------------------------------
+
+        $plugins = $this->get_plugins();
+        $last_exception = NULL;
+
+        try {
+            foreach ($plugins as $plugin => $details) {
+                $plugin_group = $plugin . '_plugin'; // TODO: hard coded value
+                $group = Group_Factory::create($plugin_group);
+
+                if (! $group->exists()) {
+                    $info['core']['description'] = $details['name'];
+                    $group->add($info);
+                }
+            }
+        } catch (Exception $e) {
+            $last_exception = $e;
+        }
     }
 
     /**

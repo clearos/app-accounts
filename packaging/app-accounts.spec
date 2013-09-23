@@ -1,7 +1,7 @@
 
 Name: app-accounts
 Epoch: 1
-Version: 1.5.0
+Version: 1.5.5
 Release: 1%{dist}
 Summary: Account Manager
 License: GPLv3
@@ -44,6 +44,7 @@ install -d -m 0755 %{buildroot}/var/clearos/events/accounts
 install -D -m 0755 packaging/accounts %{buildroot}/var/clearos/events/accounts/accounts
 install -D -m 0755 packaging/accounts-init %{buildroot}/usr/sbin/accounts-init
 install -D -m 0644 packaging/filewatch-accounts-event.conf %{buildroot}/etc/clearsync.d/filewatch-accounts-event.conf
+install -D -m 0755 packaging/initialize-plugins %{buildroot}/usr/sbin/initialize-plugins
 install -D -m 0644 packaging/nscd.php %{buildroot}/var/clearos/base/daemon/nscd.php
 
 %post
@@ -94,4 +95,5 @@ exit 0
 /var/clearos/events/accounts/accounts
 /usr/sbin/accounts-init
 /etc/clearsync.d/filewatch-accounts-event.conf
+/usr/sbin/initialize-plugins
 /var/clearos/base/daemon/nscd.php

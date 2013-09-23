@@ -5,7 +5,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 $app['basename'] = 'accounts';
-$app['version'] = '1.5.0';
+$app['version'] = '1.5.5';
 $app['release'] = '1';
 $app['vendor'] = 'ClearFoundation';
 $app['packager'] = 'ClearFoundation';
@@ -57,6 +57,10 @@ $app['core_file_manifest'] = array(
     ),
     'accounts' => array(
         'target' => '/var/clearos/events/accounts/accounts',
+        'mode' => '0755',
+    ),
+    'initialize-plugins' => array(
+        'target' => '/usr/sbin/initialize-plugins',
         'mode' => '0755',
     ),
     'nscd.php'=> array('target' => '/var/clearos/base/daemon/nscd.php'),
