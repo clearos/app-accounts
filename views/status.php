@@ -61,29 +61,7 @@ echo "<div id='accounts_configuration_widget' style='display:none;'>";
 echo "<input type='hidden' id='accounts_status_lock' value='off'>\n";
 echo "<input type='hidden' id='app_redirect' value='$app_redirect'>";
 
-//$drivers = '<table cellpadding="3" cellspacing="3">';
 $drivers = '';
-
-// FIXME: for now, don't show this unless samba4-dc is installed
-if (file_exists('/usr/sbin/samba'))
-$drivers .= "
-<div id='samba_directory_object'>
-<table cellpadding='3' cellspacing='3'>
-<tr>
-    <td align='center' width='220'><img src='$samba_logo' alt='Samba Directory'><br><br></td>
-    <td>
-        <p>" . lang('accounts_samba_directory_tip') . "</p>
-        <div id='samba_directory_installed'>$samba_directory_installed_action</div>
-        <div id='samba_directory_marketplace'>$samba_directory_marketplace_action</div>
-        <div id='samba_directory_not_available'>$samba_directory_not_available</div>
-    </td>
-</tr>
-<tr>
-    <td colspan='2'>&nbsp; </td>
-</tr>
-</table>
-</div>
-";
 
 $drivers .= "
 <div id='openldap_directory_object'>
@@ -103,6 +81,28 @@ $drivers .= "
 </table>
 </div>
 ";
+
+// TODO: don't show Samba 4 by default yet.
+if (file_exists('/usr/bin/samba-tool')) {
+$drivers .= "
+<div id='samba_directory_object'>
+<table cellpadding='3' cellspacing='3'>
+<tr>
+    <td align='center' width='220'><img src='$samba_logo' alt='Samba Directory'><br><br></td>
+    <td>
+        <p>" . lang('accounts_samba_directory_tip') . "</p>
+        <div id='samba_directory_installed'>$samba_directory_installed_action</div>
+        <div id='samba_directory_marketplace'>$samba_directory_marketplace_action</div>
+        <div id='samba_directory_not_available'>$samba_directory_not_available</div>
+    </td>
+</tr>
+<tr>
+    <td colspan='2'>&nbsp; </td>
+</tr>
+</table>
+</div>
+";
+}
 
 // TODO: implement this widget in the theme
 $drivers .= "
