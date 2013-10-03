@@ -40,6 +40,6 @@ $this->lang->load('accounts');
 // Infobox
 ///////////////////////////////////////////////////////////////////////////////
 
-$warning = lang('accounts_this_app_is_not_compatible_with_active_directory');
+$warning = lang('accounts_this_app_is_not_compatible_with_accounts_driver');
 
 echo infobox_warning(lang('base_warning'), $warning);

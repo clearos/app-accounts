@@ -69,15 +69,16 @@ class Status extends ClearOS_Controller
     /**
      * Returns state of account system
      *
-     * Some apps are not able to work when in Active Directory mode.  The
-     * driver parameter can be passed to check for this type of incompatibility.
+     * Some apps are not able to work with all directory drivers (e.g. Active
+     * Directory Connector).  The drivers parameter can be passed to check 
+     * for this type of incompatibility.
      *
-     * @param string $driver driver requirement
+     * @param array $drivers drivers requirement
      *
      * @return boolean state of accounts driver
      */
 
-    function unhappy($driver = NULL)
+    function unhappy($drivers = NULL)
     {
         // Load libraries and grab status information
         //-------------------------------------------
@@ -89,7 +90,11 @@ class Status extends ClearOS_Controller
             $status = $this->accounts->get_system_status();
             $running_driver = $this->accounts_configuration->get_driver();
 
-            if (!is_null($driver) && ($driver != $running_driver))
+            // Legacy: parameter used to be a string with a single driver.  Support it.
+            if (!is_null($drivers) && !is_array($drivers))
+                $drivers = array($drivers);
+
+            if (!is_null($drivers) && !in_array($running_driver, $drivers))
                 $happy = FALSE;
             else
                 $happy = TRUE;
@@ -110,7 +115,7 @@ class Status extends ClearOS_Controller
      * Status widget.
      *
      * @param string $app_redirect redirect back to app
-     * @param string $driver driver requirement
+     * @param array  $drivers      drivers requirement
      *
      * @return view accounts status view
      */
@@ -142,7 +147,11 @@ class Status extends ClearOS_Controller
             try {
                 $running_driver = $this->accounts_configuration->get_driver();
 
-                if ($running_driver != $driver)
+                // Legacy: parameter used to be a string with a single driver.  Support it.
+                if (!is_null($drivers) && !is_array($drivers))
+                    $drivers = array($drivers);
+
+                if (!in_array($running_driver, $drivers))
                     $driver_ok = FALSE;
             } catch (Accounts_Driver_Not_Set_Exception $e) {
                 // That's fine...
