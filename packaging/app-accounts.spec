@@ -1,7 +1,7 @@
 
 Name: app-accounts
 Epoch: 1
-Version: 1.5.5
+Version: 1.5.6
 Release: 1%{dist}
 Summary: Account Manager
 License: GPLv3
@@ -39,11 +39,13 @@ cp -r * %{buildroot}/usr/clearos/apps/accounts/
 
 install -d -m 0755 %{buildroot}/var/clearos/accounts
 install -d -m 0755 %{buildroot}/var/clearos/accounts/drivers
+install -d -m 0775 %{buildroot}/var/clearos/accounts/lock
 install -d -m 0755 %{buildroot}/var/clearos/accounts/plugins
 install -d -m 0755 %{buildroot}/var/clearos/events/accounts
 install -D -m 0755 packaging/accounts %{buildroot}/var/clearos/events/accounts/accounts
 install -D -m 0755 packaging/accounts-init %{buildroot}/usr/sbin/accounts-init
 install -D -m 0644 packaging/filewatch-accounts-event.conf %{buildroot}/etc/clearsync.d/filewatch-accounts-event.conf
+install -D -m 0755 packaging/initialize-builtin-directory %{buildroot}/usr/sbin/initialize-builtin-directory
 install -D -m 0755 packaging/initialize-plugins %{buildroot}/usr/sbin/initialize-plugins
 install -D -m 0644 packaging/nscd.php %{buildroot}/var/clearos/base/daemon/nscd.php
 
@@ -87,6 +89,7 @@ exit 0
 %dir /usr/clearos/apps/accounts
 %dir /var/clearos/accounts
 %dir /var/clearos/accounts/drivers
+%dir %attr(0775,root,webconfig) /var/clearos/accounts/lock
 %dir /var/clearos/accounts/plugins
 %dir /var/clearos/events/accounts
 /usr/clearos/apps/accounts/deploy
@@ -95,5 +98,6 @@ exit 0
 /var/clearos/events/accounts/accounts
 /usr/sbin/accounts-init
 /etc/clearsync.d/filewatch-accounts-event.conf
+/usr/sbin/initialize-builtin-directory
 /usr/sbin/initialize-plugins
 /var/clearos/base/daemon/nscd.php

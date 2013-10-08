@@ -35,6 +35,7 @@
 
 use \clearos\apps\accounts\Accounts_Driver_Not_Set_Exception as Accounts_Driver_Not_Set_Exception;
 use \clearos\apps\accounts\Accounts_Engine as Accounts_Engine;
+use \clearos\apps\accounts\Bootstrap as Bootstrap;
 
 ///////////////////////////////////////////////////////////////////////////////
 // C L A S S
@@ -213,11 +214,16 @@ class Status extends ClearOS_Controller
         //-------------------
 
         try {
-            $this->load->factory('accounts/Accounts_Factory');
+            $this->load->library('accounts/Bootstrap');
+            $bootstrap_status = $this->bootstrap->get_status();
 
+            $this->load->factory('accounts/Accounts_Factory');
             $status = $this->accounts->get_system_status();
 
-            if ($status == Accounts_Engine::STATUS_ONLINE) {
+            if ($bootstrap_status === Bootstrap::STATUS_INITIALIZING) {
+                $data['status_message'] = lang('accounts_account_system_is_initializing');
+                $data['status'] = 'installing';
+            } else if ($status == Accounts_Engine::STATUS_ONLINE) {
                 $data['status_message'] = lang('accounts_account_information_is_online');
                 $data['status'] = 'online';
             } else if ($status == Accounts_Engine::STATUS_OFFLINE) {
@@ -236,8 +242,15 @@ class Status extends ClearOS_Controller
 
             $data['code'] = 0;
         } catch (Accounts_Driver_Not_Set_Exception $e) {
-            $data['status_message'] = lang('accounts_account_system_is_not_initialized');
-            $data['status'] = 'uninitialized';
+            // See if we're being installed right now
+
+            if ($bootstrap_status === Bootstrap::STATUS_INITIALIZING) {
+                $data['status_message'] = lang('accounts_installing_builtin_directory');
+                $data['status'] = 'installing';
+            } else {
+                $data['status_message'] = lang('accounts_account_system_is_not_initialized');
+                $data['status'] = 'uninitialized';
+            }
         } catch (Exception $e) {
             $data['code'] = 1;
             $data['error_message'] = clearos_exception_message($e);
@@ -246,6 +259,7 @@ class Status extends ClearOS_Controller
         // Return status message
         //----------------------
 
+        $this->output->set_header('Cache-Control: no-cache, must-revalidate');
         $this->output->set_header("Content-Type: application/json");
         $this->output->set_output(json_encode($data));
     }

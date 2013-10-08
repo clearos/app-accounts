@@ -1,13 +1,14 @@
+#!/usr/clearos/sandbox/usr/bin/php
 <?php
 
 /**
- * Bootstrap controller.
+ * ClearOS built-in directory initializtion.
  *
  * @category   apps
  * @package    accounts
- * @subpackage controllers
+ * @subpackage scripts
  * @author     ClearFoundation <developer@clearfoundation.com>
- * @copyright  2011 ClearFoundation
+ * @copyright  2013 ClearFoundation
  * @license    http://www.gnu.org/copyleft/gpl.html GNU General Public License version 3 or later
  * @link       http://www.clearfoundation.com/docs/developer/apps/accounts/
  */
@@ -30,36 +31,25 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////
-// C L A S S
+// B O O T S T R A P
 ///////////////////////////////////////////////////////////////////////////////
 
-/**
- * Bootstrap controller.
- *
- * @category   apps
- * @package    accounts
- * @subpackage controllers
- * @author     ClearFoundation <developer@clearfoundation.com>
- * @copyright  2011 ClearFoundation
- * @license    http://www.gnu.org/copyleft/gpl.html GNU General Public License version 3 or later
- * @link       http://www.clearfoundation.com/docs/developer/apps/accounts/
- */
+$bootstrap = getenv('CLEAROS_BOOTSTRAP') ? getenv('CLEAROS_BOOTSTRAP') : '/usr/clearos/framework/shared';
+require_once $bootstrap . '/bootstrap.php';
 
-class Bootstrap extends ClearOS_Controller
-{
-    /**
-     * Bootstrap default controller
-     *
-     * @param string $force force initialization
-     *
-     * @return view
-     */
+///////////////////////////////////////////////////////////////////////////////
+// D E P E N D E N C I E S
+///////////////////////////////////////////////////////////////////////////////
 
-    function index($force = '')
-    {
-        $this->load->library('accounts/Bootstrap');
+use \clearos\apps\accounts\Bootstrap as Bootstrap;
 
-        $really_force = ($force === 'force') ? TRUE : FALSE;
-        $this->bootstrap->run_initialize($really_force);
-    }
-}
+clearos_load_library('accounts/Bootstrap');
+
+///////////////////////////////////////////////////////////////////////////////
+// M A I N
+///////////////////////////////////////////////////////////////////////////////
+
+$bootstrap = new Bootstrap();
+
+$bootstrap->initialize();
+

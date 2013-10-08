@@ -53,9 +53,10 @@ $samba_directory_marketplace_action = anchor_custom('/app/marketplace/view/samba
 $samba_directory_not_available = lang('accounts_samba_directory_not_available_in_this_edition');
 
 $openldap_directory_installed = anchor_custom('/app/openldap_directory', lang('accounts_configure_builtin_directory'));
-$openldap_directory_marketplace = anchor_custom('/app/marketplace/view/openldap_directory', lang('accounts_install_builtin_directory'));
+$openldap_directory_driver_install = anchor_javascript('install_and_initialize_openldap', lang('accounts_install_and_initialize_builtin_directory'));
 $openldap_driver_installed = anchor_javascript('initialize_openldap', lang('accounts_initialize_builtin_directory'));
 
+echo "<div id='accounts_wrapper'>";
 echo "<div id='accounts_configuration_widget' style='display:none;'>";
 
 echo "<input type='hidden' id='accounts_status_lock' value='off'>\n";
@@ -71,7 +72,7 @@ $drivers .= "
     <td>
         <p>" . lang('accounts_openldap_directory_tip') . "</p>
         <div id='openldap_directory_installed'>$openldap_directory_installed</div>
-        <div id='openldap_directory_marketplace'>$openldap_directory_marketplace</div>
+        <div id='openldap_directory_driver_install'>$openldap_directory_driver_install</div>
         <div id='openldap_driver_installed'>$openldap_driver_installed</div>
     </td>
 </tr>
@@ -90,7 +91,7 @@ $drivers .= "
 <tr>
     <td align='center' width='220'><img src='$samba_logo' alt='Samba Directory'><br><br></td>
     <td>
-        <p>" . lang('accounts_samba_directory_tip') . "</p>
+        <p>" . lang('accounts_samba_directory_tip') . " <strong><span style='color:red'>BETA</span></strong></p>
         <div id='samba_directory_installed'>$samba_directory_installed_action</div>
         <div id='samba_directory_marketplace'>$samba_directory_marketplace_action</div>
         <div id='samba_directory_not_available'>$samba_directory_not_available</div>
@@ -131,7 +132,7 @@ echo infobox_highlight(lang('accounts_account_manager_configuration'), $drivers)
 echo form_close();
 
 echo "</div>";
-
+echo "</div>";
 
 ///////////////////////////////////////////////////////////////////////////////
 // Accounts Status

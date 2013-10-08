@@ -5,7 +5,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 $app['basename'] = 'accounts';
-$app['version'] = '1.5.5';
+$app['version'] = '1.5.6';
 $app['release'] = '1';
 $app['vendor'] = 'ClearFoundation';
 $app['packager'] = 'ClearFoundation';
@@ -44,10 +44,15 @@ $app['core_requires'] = array(
 );
 
 $app['core_directory_manifest'] = array(
+    '/var/clearos/events/accounts' => array(),
     '/var/clearos/accounts' => array(),
     '/var/clearos/accounts/drivers' => array(),
     '/var/clearos/accounts/plugins' => array(),
-    '/var/clearos/events/accounts' => array(),
+    '/var/clearos/accounts/lock' => array(
+        'mode' => '0775',
+        'owner' => 'root',
+        'group' => 'webconfig',
+    ),
 );
 
 $app['core_file_manifest'] = array(
@@ -61,6 +66,10 @@ $app['core_file_manifest'] = array(
     ),
     'initialize-plugins' => array(
         'target' => '/usr/sbin/initialize-plugins',
+        'mode' => '0755',
+    ),
+    'initialize-builtin-directory' => array(
+        'target' => '/usr/sbin/initialize-builtin-directory',
         'mode' => '0755',
     ),
     'nscd.php'=> array('target' => '/var/clearos/base/daemon/nscd.php'),

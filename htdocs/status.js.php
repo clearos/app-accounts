@@ -41,6 +41,7 @@ require_once $bootstrap . '/bootstrap.php';
 ///////////////////////////////////////////////////////////////////////////////
 
 clearos_load_language('accounts');
+clearos_load_language('base');
 
 ///////////////////////////////////////////////////////////////////////////////
 // J A V A S C R I P T
@@ -50,26 +51,40 @@ header('Content-Type:application/x-javascript');
 ?>
 
 $(document).ready(function() {
+    lang_initializing = '<?php echo lang("base_initializing..."); ?>';
+
+    $("#accounts_wrapper").show();
     $("#accounts_configuration_widget").hide();
     $("#accounts_status_widget").hide();
 
     $("#initialize_openldap").click(function(){
-        $("#accounts_configuration_widget").hide();
+        initializeLdap();
+    });
 
-        $.ajax({
-            url: '/app/accounts/bootstrap/index',
-            method: 'GET',
-            dataType: 'json',
-            success : function(payload) {
-            },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-            }
-
-        });
+    $("#install_and_initialize_openldap").click(function(){
+        initializeLdap();
     });
 
     getAccountsInfo();
 });
+
+function initializeLdap() {
+    $("#accounts_configuration_widget").hide();
+    $("#accounts_status_widget").show();
+    $("#accounts_status").html('<div class="theme-loading-normal">' + lang_initializing + '</div>');
+
+    $.ajax({
+        url: '/app/accounts/bootstrap/index',
+        method: 'GET',
+        dataType: 'json',
+        success : function(payload) {
+            $("#accounts_wrapper").show();
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            $("#accounts_wrapper").show();
+        }
+    });
+}
 
 function getAccountsInfo() {
     $.ajax({
@@ -101,8 +116,8 @@ function showAccountsInfo(payload) {
     //-------------------------------------
 
     if (payload.status == 'uninitialized') {
-        $("#accounts_status_widget").hide();
         $("#accounts_configuration_widget").show();
+        // $("#accounts_status_widget").hide();
     } else if (payload.status == 'online') {
         if (accounts_status_lock == 'step0') {
             $('#accounts_status_lock').val('on');
@@ -148,15 +163,15 @@ function showAccountsInfo(payload) {
 
     if (payload.openldap_directory_installed) {
         $("#openldap_directory_installed").show();
-        $("#openldap_directory_marketplace").hide();
+        $("#openldap_directory_driver_install").hide();
         $("#openldap_driver_installed").hide();
     } else if (payload.openldap_driver_installed) {
         $("#openldap_directory_installed").hide();
-        $("#openldap_directory_marketplace").hide();
+        $("#openldap_directory_driver_install").hide();
         $("#openldap_driver_installed").show();
     } else {
         $("#openldap_directory_installed").hide();
-        $("#openldap_directory_marketplace").show();
+        $("#openldap_directory_driver_install").show();
         $("#openldap_driver_installed").hide();
     }
 
