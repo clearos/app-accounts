@@ -1,7 +1,7 @@
 
 Name: app-accounts
 Epoch: 1
-Version: 1.5.6
+Version: 1.5.5
 Release: 1%{dist}
 Summary: Account Manager
 License: GPLv3
