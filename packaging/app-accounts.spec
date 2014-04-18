@@ -43,10 +43,12 @@ install -d -m 0775 %{buildroot}/var/clearos/accounts/lock
 install -d -m 0755 %{buildroot}/var/clearos/accounts/plugins
 install -d -m 0755 %{buildroot}/var/clearos/events/accounts
 install -d -m 0755 %{buildroot}/var/clearos/events/accounts_initialized
+install -d -m 0755 %{buildroot}/var/clearos/events/accounts_ready
 install -D -m 0755 packaging/accounts %{buildroot}/var/clearos/events/accounts/accounts
 install -D -m 0755 packaging/accounts-init %{buildroot}/usr/sbin/accounts-init
 install -D -m 0644 packaging/filewatch-accounts-event.conf %{buildroot}/etc/clearsync.d/filewatch-accounts-event.conf
 install -D -m 0644 packaging/filewatch-accounts-initialized-event.conf %{buildroot}/etc/clearsync.d/filewatch-accounts-initialized-event.conf
+install -D -m 0644 packaging/filewatch-accounts-ready-event.conf %{buildroot}/etc/clearsync.d/filewatch-accounts-ready-event.conf
 install -D -m 0755 packaging/initialize-builtin-directory %{buildroot}/usr/sbin/initialize-builtin-directory
 install -D -m 0755 packaging/initialize-plugins %{buildroot}/usr/sbin/initialize-plugins
 install -D -m 0644 packaging/nscd.php %{buildroot}/var/clearos/base/daemon/nscd.php
@@ -94,6 +96,7 @@ exit 0
 %dir /var/clearos/accounts/plugins
 %dir /var/clearos/events/accounts
 %dir /var/clearos/events/accounts_initialized
+%dir /var/clearos/events/accounts_ready
 /usr/clearos/apps/accounts/deploy
 /usr/clearos/apps/accounts/language
 /usr/clearos/apps/accounts/libraries
@@ -101,6 +104,7 @@ exit 0
 /usr/sbin/accounts-init
 /etc/clearsync.d/filewatch-accounts-event.conf
 /etc/clearsync.d/filewatch-accounts-initialized-event.conf
+/etc/clearsync.d/filewatch-accounts-ready-event.conf
 /usr/sbin/initialize-builtin-directory
 /usr/sbin/initialize-plugins
 /var/clearos/base/daemon/nscd.php

@@ -108,6 +108,7 @@ class Accounts_Engine extends Engine
     const FILE_TRANSACTION_LOG = '/var/clearos/accounts/transaction.log';
     const FILE_TRANSACTION_STATE = '/var/clearos/accounts/transaction.state';
     const FILE_INITIALIZED = '/var/clearos/accounts/initialized';
+    const FILE_READY = '/var/clearos/accounts/ready';
     const PATH_PLUGINS = '/var/clearos/accounts/plugins';
 
     const MODE_CONNECTOR = 'connector';
@@ -258,6 +259,27 @@ class Accounts_Engine extends Engine
     }
 
     /**
+     * Returns state of readiness.
+     *
+     * This will return true if accounts is ready or initialized.
+     *
+     * @return boolean TRUE if accounts system is ready
+     * @throws Engine_Exception
+     */
+
+    public function is_ready()
+    {
+        clearos_profile(__METHOD__, __LINE__);
+
+        $file = new File(self::FILE_READY);
+
+        if ($file->exists())
+            return TRUE;
+
+        return $this->is_initialized();
+    }
+
+    /**
      * Logs an account transaction.
      *
      * When user or group information is changed, the event is sent to a log
@@ -318,6 +340,32 @@ class Accounts_Engine extends Engine
                 $accounts = new \clearos\apps\central_management\Accounts_Event();
                 $accounts->initialize();
             }
+        } else if (!$state && $file->exists()) {
+            $file->delete();
+        }
+    }
+
+    /**
+     * Sets ready flag.
+     *
+     * The ready flag is set to notify account plugins/extensions that the
+     * accounts system ready.  This gives plugins/extensions a chance to take
+     * action before the "initialized" flag is set.  Samba, I'm looking at you.
+     *
+     * @param boolean $state state
+     *
+     * @return void
+     * @throws Engine_Exception
+     */
+
+    public function set_ready($state = TRUE)
+    {
+        clearos_profile(__METHOD__, __LINE__);
+
+        $file = new File(self::FILE_READY);
+
+        if ($state && !$file->exists()) {
+            $file->create('root', 'root', '0644');
         } else if (!$state && $file->exists()) {
             $file->delete();
         }

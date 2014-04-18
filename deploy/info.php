@@ -46,6 +46,7 @@ $app['core_requires'] = array(
 $app['core_directory_manifest'] = array(
     '/var/clearos/events/accounts' => array(),
     '/var/clearos/events/accounts_initialized' => array(),
+    '/var/clearos/events/accounts_ready' => array(),
     '/var/clearos/accounts' => array(),
     '/var/clearos/accounts/drivers' => array(),
     '/var/clearos/accounts/plugins' => array(),
@@ -76,4 +77,5 @@ $app['core_file_manifest'] = array(
     'nscd.php'=> array('target' => '/var/clearos/base/daemon/nscd.php'),
     'filewatch-accounts-event.conf'=> array('target' => '/etc/clearsync.d/filewatch-accounts-event.conf'),
     'filewatch-accounts-initialized-event.conf'=> array('target' => '/etc/clearsync.d/filewatch-accounts-initialized-event.conf'),
+    'filewatch-accounts-ready-event.conf'=> array('target' => '/etc/clearsync.d/filewatch-accounts-ready-event.conf'),
 );
