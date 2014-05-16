@@ -52,16 +52,27 @@ clearos_load_language('accounts');
 // D E P E N D E N C I E S
 ///////////////////////////////////////////////////////////////////////////////
 
+// Classes
+//--------
+
 use \clearos\apps\base\Engine as Engine;
 use \clearos\apps\base\File as File;
 use \clearos\apps\base\Shell as Shell;
 use \clearos\apps\base\Yum as Yum;
-use \clearos\apps\base\Yum_Busy_Exception as Yum_Busy_Exception;
 
 clearos_load_library('base/Engine');
 clearos_load_library('base/File');
 clearos_load_library('base/Shell');
 clearos_load_library('base/Yum');
+
+// Exceptions
+//-----------
+
+use \Exception as Exception;
+use \clearos\apps\base\Engine_Exception as Engine_Exception;
+use \clearos\apps\base\Yum_Busy_Exception as Yum_Busy_Exception;
+
+clearos_load_library('base/Engine_Exception');
 clearos_load_library('base/Yum_Busy_Exception');
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -182,8 +193,8 @@ class Bootstrap extends Engine
     /**
      * Returns status of account system.
      *
-     * - Bootstrap::STATUS_INITIALIZING
-     * - Bootstrap::STATUS_INITIALIZED
+     * - self::STATUS_INITIALIZING
+     * - self::STATUS_INITIALIZED
      *
      * @return string bootstrap system status
      * @throws Engine_Exception
