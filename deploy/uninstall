@@ -24,3 +24,8 @@ if [ -e /var/clearos/accounts/transaction.state ]; then
     logger -p local6.notice -t installer "app-accounts-core - removing transaction state"
     rm -f /var/clearos/accounts/transaction.state
 fi
+
+if [ -e /var/clearos/accounts/ready ]; then
+    logger -p local6.notice -t installer "app-accounts-core - removing ready state"
+    rm -f /var/clearos/accounts/ready
+fi
