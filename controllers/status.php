@@ -223,6 +223,9 @@ class Status extends ClearOS_Controller
             if ($bootstrap_status === Bootstrap::STATUS_INITIALIZING) {
                 $data['status_message'] = lang('accounts_account_system_is_initializing');
                 $data['status'] = 'installing';
+            } else if ($bootstrap_status === Bootstrap::STATUS_INSTALL_FAILED) {
+                $data['status_message'] = lang('accounts_account_install_failed');
+                $data['status'] = 'install_failed';
             } else if ($status == Accounts_Engine::STATUS_ONLINE) {
                 $data['status_message'] = lang('accounts_account_information_is_online');
                 $data['status'] = 'online';
@@ -247,6 +250,9 @@ class Status extends ClearOS_Controller
             if ($bootstrap_status === Bootstrap::STATUS_INITIALIZING) {
                 $data['status_message'] = lang('accounts_installing_builtin_directory');
                 $data['status'] = 'installing';
+            } else if ($bootstrap_status === Bootstrap::STATUS_INSTALL_FAILED) {
+                $data['status_message'] = lang('accounts_account_install_failed');
+                $data['status'] = 'install_failed';
             } else {
                 $data['status_message'] = lang('accounts_account_system_is_not_initialized');
                 $data['status'] = 'uninitialized';

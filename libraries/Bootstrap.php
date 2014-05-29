@@ -52,27 +52,16 @@ clearos_load_language('accounts');
 // D E P E N D E N C I E S
 ///////////////////////////////////////////////////////////////////////////////
 
-// Classes
-//--------
-
 use \clearos\apps\base\Engine as Engine;
 use \clearos\apps\base\File as File;
 use \clearos\apps\base\Shell as Shell;
 use \clearos\apps\base\Yum as Yum;
+use \clearos\apps\base\Yum_Busy_Exception as Yum_Busy_Exception;
 
 clearos_load_library('base/Engine');
 clearos_load_library('base/File');
 clearos_load_library('base/Shell');
 clearos_load_library('base/Yum');
-
-// Exceptions
-//-----------
-
-use \Exception as Exception;
-use \clearos\apps\base\Engine_Exception as Engine_Exception;
-use \clearos\apps\base\Yum_Busy_Exception as Yum_Busy_Exception;
-
-clearos_load_library('base/Engine_Exception');
 clearos_load_library('base/Yum_Busy_Exception');
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -99,8 +88,10 @@ class Bootstrap extends Engine
 
     const COMMAND_INITIALIZE = '/usr/sbin/initialize-builtin-directory';
     const FILE_INITIALIZING = '/var/clearos/accounts/lock/initializing';
+    const FILE_INSTALL_FAILED = '/var/clearos/accounts/lock/install_failed';
     const STATUS_INITIALIZING = 'initializing';
     const STATUS_INITIALIZED = 'initialized';
+    const STATUS_INSTALL_FAILED = 'install_failed';
     const STATUS_UNINITIALIZED = 'uninitialized';
 
     ///////////////////////////////////////////////////////////////////////////////
@@ -140,6 +131,11 @@ class Bootstrap extends Engine
             return;
         }
 
+        $install_file = new File(self::FILE_INSTALL_FAILED);
+
+        if ($install_file->exists())
+            $install_file->delete();
+
         // Install and initialize
         //-----------------------
 
@@ -163,8 +159,14 @@ class Bootstrap extends Engine
                         clearos_log('accounts', 'installing built-in directory... waiting for yum');
 
                         sleep(10);
+                    } catch (\Exception $e) {
+                        clearos_log('accounts', 'install of built-in directory failed');
+
+                        $install_file->create('webconfig', 'webconfig', '0644');
+                        break;
                     }
                 }
+
             }
 
             clearos_load_library('openldap_directory/OpenLDAP');
@@ -193,8 +195,8 @@ class Bootstrap extends Engine
     /**
      * Returns status of account system.
      *
-     * - self::STATUS_INITIALIZING
-     * - self::STATUS_INITIALIZED
+     * - Bootstrap::STATUS_INITIALIZING
+     * - Bootstrap::STATUS_INITIALIZED
      *
      * @return string bootstrap system status
      * @throws Engine_Exception
@@ -217,7 +219,11 @@ class Bootstrap extends Engine
         }
 
         // TODO: adjust clearos_load_library for development mode
-        if (file_exists('/usr/clearos/apps/openldap_directory/libraries/OpenLDAP.php'))
+        $install_failed = new File(self::FILE_INSTALL_FAILED);
+
+        if ($install_failed->exists())
+            return self::STATUS_INSTALL_FAILED;
+        else if (file_exists('/usr/clearos/apps/openldap_directory/libraries/OpenLDAP.php'))
             return self::STATUS_INITIALIZED;
         else
             return self::STATUS_UNINITIALIZED;

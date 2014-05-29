@@ -3,6 +3,7 @@
 $lang['accounts_account_information_is_offline'] = 'Account system is offline.';
 $lang['accounts_account_information_is_online'] = 'Accounts system is online.';
 $lang['accounts_account_information_is_unavailable'] = 'Account information is unavailable.';
+$lang['accounts_account_install_failed'] = 'Install failed, please check your network connection.';
 $lang['accounts_account_manager_configuration'] = 'Account Manager Configuration';
 $lang['accounts_account_manager_status'] = 'Account Manager Status';
 $lang['accounts_account_synchronization'] = 'Account Synchronization';

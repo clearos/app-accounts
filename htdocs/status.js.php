@@ -110,7 +110,10 @@ function showAccountsInfo(payload) {
 
     var accounts_status_lock = $('#accounts_status_lock').val();
 
-    $("#accounts_status").html('<div class="theme-loading-normal">' + payload.status_message + '</div>');
+    if (payload.status == 'install_failed')
+        $("#accounts_status").html('<div>' + payload.status_message + '</div>');
+    else
+        $("#accounts_status").html('<div class="theme-loading-normal">' + payload.status_message + '</div>');
 
     // Show / hide forms depending on state
     //-------------------------------------
@@ -118,6 +121,9 @@ function showAccountsInfo(payload) {
     if (payload.status == 'uninitialized') {
         $("#accounts_configuration_widget").show();
         // $("#accounts_status_widget").hide();
+    } else if (payload.status == 'install_failed') {
+        $("#accounts_configuration_widget").show();
+        $("#accounts_status_widget").show();
     } else if (payload.status == 'online') {
         if (accounts_status_lock == 'step0') {
             $('#accounts_status_lock').val('on');
