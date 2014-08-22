@@ -84,7 +84,7 @@ $drivers .= "
 ";
 
 // TODO: don't show Samba 4 by default yet.
-if (file_exists('/usr/bin/samba-tool')) {
+if ($base_version != 6) {
 $drivers .= "
 <div id='samba_directory_object'>
 <table cellpadding='3' cellspacing='3'>

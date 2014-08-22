@@ -138,6 +138,7 @@ class Status extends ClearOS_Controller
 
         $this->lang->load('base');
         $this->load->library('accounts/Accounts_Configuration');
+        $this->load->library('base/Product');
 
         // Load view data
         //---------------
@@ -157,6 +158,13 @@ class Status extends ClearOS_Controller
             } catch (Accounts_Driver_Not_Set_Exception $e) {
                 // That's fine...
             }
+        }
+
+        try {
+            $data['base_version'] = $this->product->get_base_version();
+        } catch (Exception $e) {
+            $this->page->view_exception($e);
+            return;
         }
 
         if (! preg_match('/^([a-zA-Z0-9_])*/', $app_redirect))
