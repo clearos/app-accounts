@@ -43,6 +43,7 @@ $this->lang->load('accounts');
 $ad_logo = clearos_app_htdocs('accounts') . '/ad_logo.png';
 $samba_logo = clearos_app_htdocs('accounts') . '/samba_logo.png';
 $openldap_logo = clearos_app_htdocs('accounts') . '/openldap_logo.gif';
+$google_apps_logo = clearos_app_htdocs('accounts') . '/google_apps_logo.png';
 
 $ad_installed_action = anchor_custom('/app/active_directory', lang('accounts_configure_active_directory_connector'));
 $ad_marketplace_action = anchor_custom('/app/marketplace/view/active_directory', lang('accounts_install_active_directory_connector'));
@@ -51,6 +52,10 @@ $ad_not_available = lang('accounts_active_directory_not_available_in_this_editio
 $samba_directory_installed_action = anchor_custom('/app/samba_directory', lang('accounts_configure_samba_directory'));
 $samba_directory_marketplace_action = anchor_custom('/app/marketplace/view/samba_directory', lang('accounts_install_samba_directory'));
 $samba_directory_not_available = lang('accounts_samba_directory_not_available_in_this_edition');
+
+$google_apps_connector_installed_action = anchor_custom('/app/google_apps_connector', lang('accounts_configure_google_apps_connector'));
+$google_apps_connector_marketplace_action = anchor_custom('/app/marketplace/view/google_apps_connector', lang('accounts_install_google_apps_connector'));
+$google_apps_connector_not_available = lang('accounts_google_apps_connector_not_available_in_this_edition');
 
 $openldap_directory_installed = anchor_custom('/app/openldap_directory', lang('accounts_configure_builtin_directory'));
 $openldap_directory_driver_install = anchor_javascript('install_and_initialize_openldap', lang('accounts_install_and_initialize_builtin_directory'));
@@ -95,6 +100,24 @@ $drivers .= "
         <div id='samba_directory_installed'>$samba_directory_installed_action</div>
         <div id='samba_directory_marketplace'>$samba_directory_marketplace_action</div>
         <div id='samba_directory_not_available'>$samba_directory_not_available</div>
+    </td>
+</tr>
+<tr>
+    <td colspan='2'>&nbsp; </td>
+</tr>
+</table>
+</div>
+
+
+<div id='google_apps_connector_object'>
+<table cellpadding='3' cellspacing='3'>
+<tr>
+    <td align='center' width='220'><img src='$google_apps_logo' alt='Google Apps Connector'><br><br></td>
+    <td>
+        <p>" . lang('google_apps_connector_tip') . " <strong><span style='color:red'>BETA</span></strong></p>
+        <div id='google_apps_connector_installed'>$google_apps_connector_installed_action</div>
+        <div id='google_apps_connector_marketplace'>$google_apps_connector_marketplace_action</div>
+        <div id='google_apps_connector_not_available'>$google_apps_connector_not_available</div>
     </td>
 </tr>
 <tr>
