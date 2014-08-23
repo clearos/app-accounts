@@ -1,15 +1,11 @@
 <?php
 
-
-
 $lang['accounts_account_information_is_offline'] = 'Account system is offline.';
 $lang['accounts_account_information_is_online'] = 'Accounts system is online.';
 $lang['accounts_account_information_is_unavailable'] = 'Account information is unavailable.';
 $lang['accounts_account_install_failed'] = 'Install failed, please check your network connection.';
 $lang['accounts_account_manager_configuration'] = 'Account Manager Configuration';
 $lang['accounts_account_manager_status'] = 'Account Manager Status';
-$lang['accounts_accounts_caching_server'] = 'Accounts Caching Server';
-$lang['accounts_accounts_driver_is_invalid'] = 'Accounts driver is invalid.';
 $lang['accounts_account_synchronization'] = 'Account Synchronization';
 $lang['accounts_account_synchronization_available_help'] = 'Before configuring your user and group accounts, you can install and configure the Accounts Synchronization app.  This app synchronizes accounts across multiple systems.';
 $lang['accounts_account_synchronization_help'] = 'Before configuring user and group accounts, please configure the settings in the Account Synchronization app.';
@@ -17,6 +13,8 @@ $lang['accounts_account_system_driver_not_set'] = 'Accounts system driver has no
 $lang['accounts_account_system_initializing_extensions'] = 'Account system is initializing extensions and will return shortly.';
 $lang['accounts_account_system_is_initializing'] = 'Account system is initializing, please be patient.';
 $lang['accounts_account_system_is_not_initialized'] = 'Account system is not initialized.';
+$lang['accounts_accounts_caching_server'] = 'Accounts Caching Server';
+$lang['accounts_accounts_driver_is_invalid'] = 'Accounts driver is invalid.';
 $lang['accounts_active'] = 'Active';
 $lang['accounts_active_directory_connector_tip'] = 'With the Active Directory Connector, you can use users and groups defined in your Microsoft AD system.';
 $lang['accounts_active_directory_not_available_in_this_edition'] = 'The Active Directory Connector is not available in this edition.';
@@ -45,19 +43,19 @@ $lang['accounts_extensions'] = 'Extensions';
 $lang['accounts_google_apps_connector_not_available_in_this_edition'] = 'Google Apps Connector is not available in this edition.';
 $lang['accounts_group_with_this_name_exists'] = 'Group with this name already exists.';
 $lang['accounts_home_directory'] = 'Home Directory';
-$lang['accounts_home_directory_storage_plugin_description'] = 'The home directory storage plugin is used to map the /home folder to storage.';
 $lang['accounts_home_directory_storage_plugin'] = 'Home Directory Plugin';
+$lang['accounts_home_directory_storage_plugin_description'] = 'The home directory storage plugin is used to map the /home folder to storage.';
 $lang['accounts_initialize_builtin_directory'] = 'Initialize Built-in Directory';
 $lang['accounts_install_active_directory_connector'] = 'Install Active Directory Connector';
 $lang['accounts_install_and_initialize_builtin_directory'] = 'Install and Initialize Built-in Directory';
 $lang['accounts_install_builtin_directory'] = 'Install Built-in Directory';
 $lang['accounts_install_google_apps_connector'] = 'Install Google Apps Connector';
-$lang['accounts_installing_builtin_directory'] = 'Installing built-in directory, please be patient.';
 $lang['accounts_install_samba_directory'] = 'Install Samba Directory';
+$lang['accounts_installing_builtin_directory'] = 'Installing built-in directory, please be patient.';
 $lang['accounts_master'] = 'Master';
 $lang['accounts_openldap_directory_tip'] = 'The native Directory Server provides the most flexibility when it comes to supporting third party apps.';
-$lang['accounts_plugin_name_invalid'] = 'Plugin name is invalid.';
 $lang['accounts_plugin'] = 'Plugin';
+$lang['accounts_plugin_name_invalid'] = 'Plugin name is invalid.';
 $lang['accounts_plugins'] = 'Plugins';
 $lang['accounts_reload_cache'] = 'Reload Cache';
 $lang['accounts_reserved_for_system_use'] = 'Reserved for system use.';
