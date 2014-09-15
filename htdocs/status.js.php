@@ -223,15 +223,15 @@ function showAccountsInfo(payload) {
     if (payload.devel) {
         // Show all in devel mode
     } else if (payload.samba_directory_installed) {
-        $("#google_apps_connector_hide").hide();
+        $("#google_apps_connector_object").hide();
         $("#openldap_directory_object").hide();
         $("#ad_object").hide();
     } else if ((payload.openldap_directory_installed) || (payload.openldap_directory_installed)) {
-        $("#google_apps_connector_hide").hide();
+        $("#google_apps_connector_object").hide();
         $("#samba_directory_object").hide();
         $("#ad_object").hide();
     } else if (payload.ad_installed) {
-        $("#google_apps_connector_hide").hide();
+        $("#google_apps_connector_object").hide();
         $("#samba_directory_object").hide();
         $("#openldap_directory_object").hide();
     } else if (payload.google_apps_connector_installed) {

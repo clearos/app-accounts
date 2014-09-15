@@ -207,7 +207,7 @@ class Status extends ClearOS_Controller
             $os_name = $this->os->get_name();
 
             // TODO: this should be generalized (e.g. if (os_type = business)
-            if (preg_match('/iiiiCommunity/', $os_name)) {
+            if (preg_match('/Community/', $os_name)) {
                 $data['ad_not_available'] = TRUE;
                 $data['samba_directory_not_available'] = TRUE;
                 $data['google_apps_connector_not_available'] = TRUE;
