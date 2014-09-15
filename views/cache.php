@@ -46,5 +46,5 @@ echo "</form>";
 
 echo infobox_highlight(
     lang('accounts_cache_status'), 
-    "'<div class='theme-form-status-working'>" . lang('accounts_connecting_to_active_directory_please_be_patient') . "</div>"
+    "<div class='theme-form-status-working'>" . lang('accounts_connecting_to_active_directory_please_be_patient') . "</div>"
 );
