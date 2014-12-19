@@ -138,7 +138,7 @@ class Status extends ClearOS_Controller
 
         $this->lang->load('base');
         $this->load->library('accounts/Accounts_Configuration');
-        $this->load->library('base/Product');
+        $this->load->library('base/OS');
 
         // Load view data
         //---------------
@@ -161,7 +161,7 @@ class Status extends ClearOS_Controller
         }
 
         try {
-            $data['base_version'] = $this->product->get_base_version();
+            $data['base_version'] = $this->os->get_base_version();
         } catch (Exception $e) {
             $this->page->view_exception($e);
             return;
