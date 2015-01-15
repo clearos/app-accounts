@@ -5,7 +5,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 $app['basename'] = 'accounts';
-$app['version'] = '2.0.10';
+$app['version'] = '2.0.14';
 $app['release'] = '1';
 $app['vendor'] = 'ClearFoundation';
 $app['packager'] = 'ClearFoundation';
@@ -19,7 +19,7 @@ $app['description'] = lang('accounts_app_description');
 
 $app['name'] = lang('accounts_app_name');
 $app['category'] = lang('base_category_system');
-$app['subcategory'] = 'Accounts Manager';
+$app['subcategory'] = lang('base_subcategory_account_manager');
 
 /////////////////////////////////////////////////////////////////////////////
 // Controllers
