@@ -103,7 +103,7 @@ class System_Mode extends ClearOS_Controller
             $os = $this->os->get_name();
 
             // TODO: use a policy instead
-            if (!preg_match('/ClearOS Professional/i', $os)) {
+            if (!preg_match('/ClearOS Business/i', $os)) {
                 $this->mode->set_mode(Mode_Engine::MODE_STANDALONE);
                 $initialized = TRUE;
             } else {
