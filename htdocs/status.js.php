@@ -69,9 +69,12 @@ $(document).ready(function() {
 });
 
 function initializeLdap() {
+    var loading_options = Array();
+    loading_options.text = lang_initializing;
+
+    $("#accounts_status").html(theme_loading(loading_options));
     $("#accounts_configuration_widget").hide();
     $("#accounts_status_widget").show();
-    $("#accounts_status").html('<div class="theme-loading-normal">' + lang_initializing + '</div>');
 
     $.ajax({
         url: '/app/accounts/bootstrap/index',
@@ -110,10 +113,13 @@ function showAccountsInfo(payload) {
 
     var accounts_status_lock = $('#accounts_status_lock').val();
 
-    if (payload.status == 'install_failed')
+    if (payload.status == 'install_failed') {
         $("#accounts_status").html('<div>' + payload.status_message + '</div>');
-    else
-        $("#accounts_status").html('<div class="theme-loading-normal">' + payload.status_message + '</div>');
+    } else {
+        var loading_options = Array();
+        loading_options.text = payload.status_message;
+        $("#accounts_status").html(theme_loading(loading_options));
+    }
 
     // Show / hide forms depending on state
     //-------------------------------------
