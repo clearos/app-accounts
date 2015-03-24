@@ -40,15 +40,13 @@ $this->lang->load('accounts');
 // Accounts Setup
 ///////////////////////////////////////////////////////////////////////////////
 
-$sync_logo = clearos_app_htdocs('accounts') . '/account_synchronization_50x50.png';
-$buttons = button_set(
-    array(
-        anchor_custom('/app/accounts/system_mode/set', lang('base_ok')),
-        anchor_cancel('/app/accounts')
-    )
+$options['buttons'] = array(
+    anchor_custom('/app/accounts/system_mode/set', lang('base_ok')),
+    anchor_cancel('/app/accounts')
 );
 
 echo infobox_highlight(
     lang('base_confirm'),
-    lang('accounts_confirm_standalone_mode') . "<br><br>" . $buttons
+    lang('accounts_confirm_standalone_mode'),
+    $options
 );

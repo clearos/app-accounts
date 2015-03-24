@@ -28,12 +28,6 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
 ///////////////////////////////////////////////////////////////////////////////
-//
-// TODO: this is a usability and coding circle.  The decision to make
-// Account Synchronization and app instead of integrating it creates this
-// headache.  There has to be a better way.
-//
-///////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////
 // D E P E N D E N C I E S
@@ -146,7 +140,7 @@ class System_Mode extends ClearOS_Controller
 
     function widget()
     {
-        $data['account_synchronization_installed'] = clearos_app_installed('account_synchronization');
+        $data['master_slave_synchronization_installed'] = clearos_app_installed('master_slave');
 
         $this->page->view_form('accounts/mode', $data, lang('base_server_status'));
     }
