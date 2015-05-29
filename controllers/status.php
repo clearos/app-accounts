@@ -68,6 +68,18 @@ class Status extends ClearOS_Controller
     }
 
     /**
+     * Status infobox.
+     *
+     * @return view accounts infobox
+     */
+
+    function infobox($app_redirect, $driver = NULL)
+    {
+
+        $this->page->view_form('accounts/please_configure', NULL, lang('base_server_status'));
+    }
+
+    /**
      * Returns state of account system
      *
      * Some apps are not able to work with all directory drivers (e.g. Active

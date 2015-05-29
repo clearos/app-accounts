@@ -46,7 +46,7 @@ $options['buttons'] = array(
 
 
 echo infobox_warning(
-    lang('base_warning'),
+    lang('accounts_account_manager_status'),
     lang('accounts_configure_accounts_system_first'),
     $options
 );
