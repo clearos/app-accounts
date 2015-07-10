@@ -155,24 +155,6 @@ function showAccountsInfo(payload) {
     // Account Configuration
     //----------------------
 
-    if (payload.google_apps_connector_not_available) {
-        $("#google_apps_connector_installed").hide();
-        $("#google_apps_connector_marketplace").hide();
-        $("#google_apps_connector_not_available").show();
-    } else if (payload.google_apps_connector_installed) {
-        $("#google_apps_connector_installed").show();
-        $("#google_apps_connector_marketplace").hide();
-        $("#google_apps_connector_not_available").hide();
-    } else if (payload.marketplace_installed) {
-        $("#google_apps_connector_installed").hide();
-        $("#google_apps_connector_marketplace").show();
-        $("#google_apps_connector_not_available").hide();
-    } else {
-        $("#google_apps_connector_installed").hide();
-        $("#google_apps_connector_marketplace").hide();
-        $("#google_apps_connector_not_available").hide();
-    }
-
     if (payload.samba_directory_not_available) {
         $("#samba_directory_installed").hide();
         $("#samba_directory_marketplace").hide();
@@ -229,21 +211,14 @@ function showAccountsInfo(payload) {
     if (payload.devel) {
         // Show all in devel mode
     } else if (payload.samba_directory_installed) {
-        $("#google_apps_connector_object").hide();
         $("#openldap_directory_object").hide();
         $("#ad_object").hide();
     } else if ((payload.openldap_directory_installed) || (payload.openldap_directory_installed)) {
-        $("#google_apps_connector_object").hide();
         $("#samba_directory_object").hide();
         $("#ad_object").hide();
     } else if (payload.ad_installed) {
-        $("#google_apps_connector_object").hide();
         $("#samba_directory_object").hide();
         $("#openldap_directory_object").hide();
-    } else if (payload.google_apps_connector_installed) {
-        $("#samba_directory_object").hide();
-        $("#openldap_directory_object").hide();
-        $("#ad_object").hide();
     }
 }
 
