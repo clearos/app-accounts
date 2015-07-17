@@ -218,11 +218,14 @@ class Status extends ClearOS_Controller
             $os_name = $this->os->get_name();
 
             // TODO: this should be generalized (e.g. if (os_type = business)
-            if (!preg_match('/Business/', $os_name)) {
+            if (preg_match('/Business/', $os_name)) {
+                $data['ad_not_available'] = FALSE;
+                $data['samba_directory_not_available'] = FALSE;
+            } else if (preg_match('/Home/', $os_name)) {
                 $data['ad_not_available'] = TRUE;
                 $data['samba_directory_not_available'] = TRUE;
             } else {
-                $data['ad_not_available'] = FALSE;
+                $data['ad_not_available'] = TRUE;
                 $data['samba_directory_not_available'] = FALSE;
             }
         } catch (Exception $e) {
@@ -240,7 +243,10 @@ class Status extends ClearOS_Controller
             $this->load->factory('accounts/Accounts_Factory');
             $status = $this->accounts->get_system_status();
 
-            if ($bootstrap_status === Bootstrap::STATUS_INITIALIZING) {
+            if ($bootstrap_status === Bootstrap::STATUS_READY_TO_CONFIGURE) {
+                $data['status_message'] = lang('accounts_installing_accounts_driver');
+                $data['status'] = 'ready_to_configure';
+            } else if ($bootstrap_status === Bootstrap::STATUS_INITIALIZING) {
                 $data['status_message'] = lang('accounts_account_system_is_initializing');
                 $data['status'] = 'installing';
             } else if ($bootstrap_status === Bootstrap::STATUS_INSTALL_FAILED) {
@@ -267,8 +273,11 @@ class Status extends ClearOS_Controller
         } catch (Accounts_Driver_Not_Set_Exception $e) {
             // See if we're being installed right now
 
-            if ($bootstrap_status === Bootstrap::STATUS_INITIALIZING) {
-                $data['status_message'] = lang('accounts_installing_builtin_directory');
+            if ($bootstrap_status === Bootstrap::STATUS_READY_TO_CONFIGURE) {
+                $data['status_message'] = lang('accounts_installing_accounts_driver');
+                $data['status'] = 'ready_to_configure';
+            } else if ($bootstrap_status === Bootstrap::STATUS_INITIALIZING) {
+                $data['status_message'] = lang('accounts_installing_accounts_driver');
                 $data['status'] = 'installing';
             } else if ($bootstrap_status === Bootstrap::STATUS_INSTALL_FAILED) {
                 $data['status_message'] = lang('accounts_account_install_failed');

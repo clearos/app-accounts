@@ -86,11 +86,13 @@ class Bootstrap extends Engine
     // C O N S T A N T S
     ///////////////////////////////////////////////////////////////////////////////
 
-    const COMMAND_INITIALIZE = '/usr/sbin/initialize-builtin-directory';
+    const COMMAND_INITIALIZE = '/usr/sbin/initialize-accounts';
     const FILE_INITIALIZING = '/var/clearos/accounts/lock/initializing';
     const FILE_INSTALL_FAILED = '/var/clearos/accounts/lock/install_failed';
+    const FILE_READY_TO_CONFIGURE = '/var/clearos/accounts/lock/ready';
     const STATUS_INITIALIZING = 'initializing';
     const STATUS_INITIALIZED = 'initialized';
+    const STATUS_READY_TO_CONFIGURE = 'ready';
     const STATUS_INSTALL_FAILED = 'install_failed';
     const STATUS_UNINITIALIZED = 'uninitialized';
 
@@ -110,13 +112,13 @@ class Bootstrap extends Engine
     /**
      * Initializes the default accounts driver.
      *
-     * @param boolean $force flag to initialize even on a system already initialized
+     * @param string $directory directory driver
      *
      * @return string accounts driver
      * @throws Engine_Exception
      */
 
-    public function initialize($force = FALSE)
+    public function initialize($directory)
     {
         clearos_profile(__METHOD__, __LINE__);
 
@@ -131,6 +133,11 @@ class Bootstrap extends Engine
             return;
         }
 
+        $ready_to_configure_file = new File(self::FILE_READY_TO_CONFIGURE);
+
+        if ($ready_to_configure_file->exists())
+            $ready_to_configure_file->delete();
+
         $install_file = new File(self::FILE_INSTALL_FAILED);
 
         if ($install_file->exists())
@@ -140,50 +147,42 @@ class Bootstrap extends Engine
         //-----------------------
 
         try {
-            // TODO: adjust clearos_load_library for development mode
-            // if (!clearos_load_library('openldap_directory/OpenLDAP')) {
-            if (! file_exists('/usr/clearos/apps/openldap_directory/libraries/OpenLDAP.php')) {
-                clearos_load_library('base/Yum');
+            // TODO: adjust clearos_load_library for development mode.
+            // Use file_exists() instead  in the interim
+            if ($directory === 'openldap') {
+                if (! file_exists('/usr/clearos/apps/openldap_directory/libraries/OpenLDAP.php'))
+                    $this->_install_app('app-openldap-directory-core');
 
-                $is_busy = TRUE;
-            
-                while ($is_busy) {
-                    try {
-                        clearos_log('accounts', 'installing built-in directory');
-
-                        $yum = new Yum();
-                        $yum->install(array('app-openldap-directory-core'), FALSE);
-
-                        $is_busy = FALSE;
-                    } catch (Yum_Busy_Exception $e) {
-                        clearos_log('accounts', 'installing built-in directory... waiting for yum');
-
-                        sleep(10);
-                    } catch (\Exception $e) {
-                        clearos_log('accounts', 'install of built-in directory failed');
-
-                        $install_file->create('webconfig', 'webconfig', '0644');
-                        break;
-                    }
-                }
-
+                clearos_load_library('openldap_directory/OpenLDAP');
+                $openldap = new \clearos\apps\openldap_directory\OpenLDAP();
+                $openldap->run_initialize(\clearos\apps\openldap_directory\OpenLDAP::DEFAULT_DOMAIN);
+            } else if ($directory === 'samba_directory') {
+                if (! file_exists('/usr/clearos/apps/samba_directory/libraries/Samba_Directory.php'))
+                    $this->_install_app('app-samba-directory');
+            } else if ($directory === 'ad') {
+                if (! file_exists('/usr/clearos/apps/active_directory/libraries/Active_Directory.php'))
+                    $this->_install_app('app-active-directory');
             }
-
-            clearos_load_library('openldap_directory/OpenLDAP');
-
-            $openldap = new \clearos\apps\openldap_directory\OpenLDAP();
-
-            $openldap->run_initialize(\clearos\apps\openldap_directory\OpenLDAP::DEFAULT_DOMAIN, $force);
-
         } catch (Exception $e) {
             $file->delete();
             throw new Engine_Exception(clearos_exception_message($e));
         }
 
+        // Kludgy
+        // - make sure the run_initialize() has a chance to set its status
+        // - give the system a window to let admin know system is ready to configure
+        //---------------------------------------------------------------------------
+
+        try {
+            $ready_to_configure_file->create('root', 'root', '0644');
+            sleep(15);
+            $ready_to_configure_file->delete();
+        } catch (Exception $e) {
+            // Not fatal
+        }
+
         // Cleanup file / file lock
         //-------------------------
-
-        sleep(3);  // Kludgy - make sure the openldap->run_initialize() has a chance to set its status
 
         flock($initializing_lock, LOCK_UN);
         fclose($initializing_lock);
@@ -210,21 +209,23 @@ class Bootstrap extends Engine
         //-------------------
 
         $file = new File(self::FILE_INITIALIZING);
+        $ready_to_configure = new File(self::FILE_READY_TO_CONFIGURE);
 
         if ($file->exists()) {
             $initializing_lock = fopen(self::FILE_INITIALIZING, 'r');
 
-            if (!flock($initializing_lock, LOCK_SH | LOCK_NB))
-                return self::STATUS_INITIALIZING;
+            if (!flock($initializing_lock, LOCK_SH | LOCK_NB)) {
+                if ($ready_to_configure->exists())
+                    return self::STATUS_READY_TO_CONFIGURE;
+                else
+                    return self::STATUS_INITIALIZING;
+            }
         }
 
-        // TODO: adjust clearos_load_library for development mode
         $install_failed = new File(self::FILE_INSTALL_FAILED);
 
         if ($install_failed->exists())
             return self::STATUS_INSTALL_FAILED;
-        else if (file_exists('/usr/clearos/apps/openldap_directory/libraries/OpenLDAP.php'))
-            return self::STATUS_INITIALIZED;
         else
             return self::STATUS_UNINITIALIZED;
     }
@@ -232,22 +233,56 @@ class Bootstrap extends Engine
     /**
      * Initializes the OpenLDAP accounts system.
      *
-     * @param string  $domain base domain
-     * @param boolean $force  forces initialization if TRUE
+     * @param string $directory directory driver
      *
      * @return void
      * @throws Engine_Exception, Validation_Exception
      */
 
-    public function run_initialize($force = FALSE)
+    public function run_initialize($directory)
     {
         clearos_profile(__METHOD__, __LINE__);
 
         $options['background'] = TRUE;
 
-        $force = ($force) ? '-f' : '';
-
         $shell = new Shell();
-        $shell->execute(self::COMMAND_INITIALIZE, "$force", TRUE, $options);
+        $shell->execute(self::COMMAND_INITIALIZE, "-d $directory", TRUE, $options);
+    }
+
+    /**
+     * Installs app.
+     *
+     * @param string $app app to install
+     *
+     * @return void
+     * @throws Engine_Exception, Validation_Exception
+     */
+
+    private function _install_app($app)
+    {
+        clearos_profile(__METHOD__, __LINE__);
+
+        $is_busy = TRUE;
+
+        while ($is_busy) {
+            try {
+                clearos_log('accounts', lang('accounts_installing_accounts_driver'));
+
+                $yum = new Yum();
+                $yum->install(array($app), FALSE);
+
+                $is_busy = FALSE;
+            } catch (Yum_Busy_Exception $e) {
+                clearos_log('accounts', lang('accounts_preparing_install'));
+
+                sleep(10);
+            } catch (\Exception $e) {
+                clearos_log('accounts', lang('accounts_driver_installed_failed'));
+
+                $install_file = new File(self::FILE_INSTALL_FAILED);
+                $install_file->create('webconfig', 'webconfig', '0644');
+                break;
+            }
+        }
     }
 }

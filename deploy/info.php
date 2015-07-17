@@ -5,7 +5,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 $app['basename'] = 'accounts';
-$app['version'] = '2.1.6';
+$app['version'] = '2.1.8';
 $app['release'] = '1';
 $app['vendor'] = 'ClearFoundation';
 $app['packager'] = 'ClearFoundation';
@@ -70,8 +70,8 @@ $app['core_file_manifest'] = array(
         'target' => '/usr/sbin/initialize-plugins',
         'mode' => '0755',
     ),
-    'initialize-builtin-directory' => array(
-        'target' => '/usr/sbin/initialize-builtin-directory',
+    'initialize-accounts' => array(
+        'target' => '/usr/sbin/initialize-accounts',
         'mode' => '0755',
     ),
     'nscd.php'=> array('target' => '/var/clearos/base/daemon/nscd.php'),

@@ -1,7 +1,7 @@
 
 Name: app-accounts
 Epoch: 1
-Version: 2.1.6
+Version: 2.1.8
 Release: 1%{dist}
 Summary: Account Manager
 License: GPLv3
@@ -49,7 +49,7 @@ install -D -m 0755 packaging/accounts-init %{buildroot}/usr/sbin/accounts-init
 install -D -m 0644 packaging/filewatch-accounts-event.conf %{buildroot}/etc/clearsync.d/filewatch-accounts-event.conf
 install -D -m 0644 packaging/filewatch-accounts-initialized-event.conf %{buildroot}/etc/clearsync.d/filewatch-accounts-initialized-event.conf
 install -D -m 0644 packaging/filewatch-accounts-ready-event.conf %{buildroot}/etc/clearsync.d/filewatch-accounts-ready-event.conf
-install -D -m 0755 packaging/initialize-builtin-directory %{buildroot}/usr/sbin/initialize-builtin-directory
+install -D -m 0755 packaging/initialize-accounts %{buildroot}/usr/sbin/initialize-accounts
 install -D -m 0755 packaging/initialize-plugins %{buildroot}/usr/sbin/initialize-plugins
 install -D -m 0644 packaging/nscd.php %{buildroot}/var/clearos/base/daemon/nscd.php
 
@@ -105,6 +105,6 @@ exit 0
 /etc/clearsync.d/filewatch-accounts-event.conf
 /etc/clearsync.d/filewatch-accounts-initialized-event.conf
 /etc/clearsync.d/filewatch-accounts-ready-event.conf
-/usr/sbin/initialize-builtin-directory
+/usr/sbin/initialize-accounts
 /usr/sbin/initialize-plugins
 /var/clearos/base/daemon/nscd.php

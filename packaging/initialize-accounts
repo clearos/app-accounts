@@ -8,7 +8,7 @@
  * @package    accounts
  * @subpackage scripts
  * @author     ClearFoundation <developer@clearfoundation.com>
- * @copyright  2013 ClearFoundation
+ * @copyright  2013-2015 ClearFoundation
  * @license    http://www.gnu.org/copyleft/gpl.html GNU General Public License version 3 or later
  * @link       http://www.clearfoundation.com/docs/developer/apps/accounts/
  */
@@ -46,10 +46,35 @@ use \clearos\apps\accounts\Bootstrap as Bootstrap;
 clearos_load_library('accounts/Bootstrap');
 
 ///////////////////////////////////////////////////////////////////////////////
+// O P T I O N S
+///////////////////////////////////////////////////////////////////////////////
+
+$short_options = '';
+$short_options .= 'd:'; // Domain
+$short_options .= 'h';  // Help
+
+$help_options  = '';
+$help_options .= "  -d: directory driver\n";
+$help_options .= "\n";
+$help_options .= "  -h: Help\n";
+
+$options = getopt($short_options);
+
+$help = isset($options['h']) ? TRUE : FALSE;
+$driver = isset($options['d']) ? $options['d'] : '';
+
+///////////////////////////////////////////////////////////////////////////////
 // M A I N
 ///////////////////////////////////////////////////////////////////////////////
 
+// Handle command line options
+//--------------------------------------------------------------------
+
+if ($help || empty($driver)) {
+    echo "usage: " . $argv[0] . " [options]\n";
+    echo $help_options;
+    exit(0);
+}
+
 $bootstrap = new Bootstrap();
-
-$bootstrap->initialize();
-
+$bootstrap->initialize($driver);

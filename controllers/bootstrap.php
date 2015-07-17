@@ -55,11 +55,9 @@ class Bootstrap extends ClearOS_Controller
      * @return view
      */
 
-    function index($force = '')
+    function index($directory)
     {
         $this->load->library('accounts/Bootstrap');
-
-        $really_force = ($force === 'force') ? TRUE : FALSE;
-        $this->bootstrap->run_initialize($really_force);
+        $this->bootstrap->run_initialize($directory);
     }
 }
