@@ -55,8 +55,10 @@ clearos_load_library('users/User_Manager_Factory');
 // Classes
 //--------
 
+use \clearos\apps\base\File as File;
 use \clearos\apps\base\Folder as Folder;
 
+clearos_load_library('base/File');
 clearos_load_library('base/Folder');
 
 // Exceptions
@@ -86,6 +88,25 @@ try {
             $home_group = 'domain users';
     }
 
+    // Grab /etc/skel file info
+    //-------------------------
+
+    try {
+        $skel = new Folder('/etc/skel');
+        $all_skel_files = $skel->get_listing(TRUE);
+        $skel_files = array();
+
+        foreach ($all_skel_files as $skel_file) {
+            if (!$skel_file['is_dir'])
+                $skel_files[] = $skel_file['name'];
+        }
+    } catch (Exception $e) {
+        // Not fatal
+    }
+
+    // Create/manage user home dirs
+    //-----------------------------
+
     $user_manager = User_Manager::create();
     $users = $user_manager->get_list();
 
@@ -97,6 +118,23 @@ try {
             $home = new Folder($home_basename . '/' . $user);
             $home->create($user, $home_group, $home_perms);
             clearos_log('accounts', 'created home directory: ' . $user);
+        }
+
+        try {
+            foreach ($skel_files as $skel_filename) {
+                $target = $home_basename . '/' . $user . '/' . $skel_filename;
+                $source = '/etc/skel/' . $skel_filename;
+                $target_file = new File($target);
+
+                if (!$target_file->exists()) {
+                    $source_file = new File($source);
+                    $source_file->copy_to($target);
+                    $source_file->chown($user, $home_group);
+                    clearos_log('accounts', 'copied skel file: ' . $target);
+                }
+            }
+        } catch (Exception $e) {
+            // Not fatal
         }
     }
 } catch (Exception $e) {
