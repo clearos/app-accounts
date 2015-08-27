@@ -224,9 +224,12 @@ class Status extends ClearOS_Controller
             } else if (preg_match('/Home/', $os_name)) {
                 $data['ad_not_available'] = TRUE;
                 $data['samba_directory_not_available'] = TRUE;
-            } else {
+            } else if (preg_match('/Community/', $os_name)) {
                 $data['ad_not_available'] = TRUE;
                 $data['samba_directory_not_available'] = FALSE;
+            } else {
+                $data['ad_not_available'] = TRUE;
+                $data['samba_directory_not_available'] = TRUE;
             }
         } catch (Exception $e) {
             $data['code'] = 1;
