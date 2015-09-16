@@ -139,8 +139,8 @@ function showAccountsInfo(payload) {
         $("#accounts_configuration_widget").show();
         $("#accounts_status_widget").hide();
     } else if (payload.status == 'install_failed') {
-        // $("#accounts_configuration_widget").show();
         $("#accounts_status_widget").show();
+        $("#accounts_configuration_widget").show();
     } else if (payload.status == 'ready_to_configure') {
         console.log('ready to configure dude: ' + accounts_driver);
         if (accounts_driver == 'samba_directory')
