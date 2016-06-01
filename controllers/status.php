@@ -225,7 +225,7 @@ class Status extends ClearOS_Controller
                 $data['ad_not_available'] = TRUE;
                 $data['samba_directory_not_available'] = TRUE;
             } else if (preg_match('/Community/', $os_name)) {
-                $data['ad_not_available'] = TRUE;
+                $data['ad_not_available'] = FALSE;
                 $data['samba_directory_not_available'] = FALSE;
             } else {
                 $data['ad_not_available'] = TRUE;
