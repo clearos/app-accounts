@@ -1,7 +1,7 @@
 
 Name: app-accounts
 Epoch: 1
-Version: 2.1.20
+Version: 2.3.20
 Release: 1%{dist}
 Summary: Account Manager
 License: GPLv3
@@ -89,6 +89,7 @@ exit 0
 %files core
 %defattr(-,root,root)
 %exclude /usr/clearos/apps/accounts/packaging
+%exclude /usr/clearos/apps/accounts/unify.json
 %dir /usr/clearos/apps/accounts
 %dir /var/clearos/accounts
 %dir /var/clearos/accounts/drivers
